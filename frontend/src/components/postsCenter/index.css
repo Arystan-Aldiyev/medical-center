@@ -1,0 +1,20 @@
+.listOfPosts{
+    margin-left: 380px;
+    width: 760px;
+    margin: 0;
+    padding: 0;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+}
+
+.listOfPosts .loading {
+    position: absolute;
+    align-items: center;
+    justify-content: center;
+    width: 30vw;
+    height: 80vh;
+    display: flex;
+    background-color: #F3F3F3;
+    border-radius: 15px;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}

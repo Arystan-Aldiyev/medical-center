@@ -1,0 +1,114 @@
+.profilePageUser {
+    height: 93.4vh;
+    width: 100vw;
+    padding: 0;
+    margin: 0%;
+    display: flex;
+    align-items: center;
+}
+
+/*Left Box */
+.profilePageUser .leftUserInfo {
+    background-color: white;
+    border-radius: 10px;
+    height: 85vh;
+    width: 15vw;
+    margin-left: 15vw;
+    box-shadow: rgba(0, 0, 0, 0.5) 0px 1px 8px;
+
+}
+    
+.leftUserInfo .userProfileBox {
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+    height: 18vh;
+    border-bottom: 1px rgba(0, 0, 0, 0.15) solid;
+}
+
+.userProfileBox .hrefBox {
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+    height: 15vh;
+}
+
+.hrefBox:hover {
+    cursor: pointer;
+}
+
+.userProfileBox img {
+    object-fit: cover;
+    height: 100px;
+    width: 100px;
+    border-radius: 50px;
+    margin-top: 1vh;
+    padding: 0;
+}
+
+.userProfileBox a {
+    width: 12vw;
+    text-align: center;
+    margin-top: 1vh;
+    font-size: 22px;
+    font-weight: bold;
+    text-decoration: none solid rgb(255, 255, 255);
+    color: black;
+}
+
+.userProfileBox p {
+    width: 12vw;
+    height: 2vh;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+    margin: 0;
+    padding: 0;
+    font-size: 14px;
+}
+
+.userProfileLinks {
+    height: 15vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.userProfileLinks .link {
+    width: 10vw;
+    height: 4vh;
+    display: flex;
+    float: left;
+    align-items: center;
+    justify-content: flex-start;
+    color: blue;
+    font-size: 14px;
+}
+
+.userProfileLinks .link:hover {
+    display: flex;
+    float: left;
+    align-items: center;
+    justify-content: flex-start;
+    cursor: pointer;
+    border-bottom: 0.5px solid black;
+    height: 4vh;
+    font-size: 14px;
+    color: black;
+}
+
+.userProfileLinks .balance {
+    margin-top: 5px;
+    height: 4vh;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.profilePageUser .rightUserInfo {
+    background-color: red;
+    height: 85vh;
+    width: 50vw;
+    margin-left: 3vw;
+}

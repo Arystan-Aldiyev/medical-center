@@ -1,0 +1,62 @@
+.subheader {
+    width: 100vw;
+    height: 80px;
+    background: #FFFFFF;
+    display: flex;
+    justify-content: center;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    font-family: 'Montserrat', sans-serif;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 24px;
+}
+
+.subheaderContent {
+    height: 100%;
+    width: 1160px;
+    display: flex;
+    justify-self: center;
+    justify-content: center;
+    align-items: center;
+}
+
+.scrollable-div {
+    width: fit-content;
+    white-space: nowrap;
+    overflow-x: auto;
+    padding-bottom: 20px;
+    transform: translateY(10px);
+}
+
+.keyWords {
+    display: inline-block;
+    width: fit-content;
+    background-color: antiquewhite;
+    margin-right: 30px;
+    padding: 12px 24px;
+    gap: 10px;
+    white-space: nowrap;
+    background: #F3F3F3;
+    border-radius: 90px;
+    color: #686868;
+    user-select: none;
+    display: flex;
+    display: inline-block;
+    text-align: center;
+}
+
+.keyWords:hover {
+    cursor: pointer;
+}
+
+.Selected {
+    background: linear-gradient(270deg, #8000FF 0%, #0057FF 100%);
+    color: #FFFFFF;
+    padding: 10px 20px;
+}
+
+.crossIcon {
+    transform: translateY(5px);
+    margin-right: 10px;
+}
