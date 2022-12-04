@@ -1,14 +1,15 @@
 from django.shortcuts import render
 from rest_framework.decorators import api_view
-from .serializers import PatientSerializer, DoctorSerializer
+from .serializers import PatientSerializer, DoctorSerializer, AppointmentSerializer
 from rest_framework.response import Response
-from .models import Patient, Doctor, User
+from .models import Patient, Doctor, User, Appointment
 from rest_framework import status
 from rest_framework_simplejwt.tokens import RefreshToken
 from django.contrib.auth import authenticate
 from django.conf import settings
 import datetime
-
+from rest_framework.generics import RetrieveUpdateDestroyAPIView, ListAPIView
+from rest_framework import status
 # Create your views here.
 
 
@@ -96,7 +97,7 @@ def login(request,*args, **kwargs):
                             )
         return response
     else:
-        return Response({"message" : "Invalid username or password!!"},status=status.HTTP_404_NOT_FOUND)
+        return Response({"message" : "Invalid username or password!"},status=status.HTTP_404_NOT_FOUND)
 
 @api_view(http_method_names=["POST"])
 def logout(request):
@@ -113,5 +114,35 @@ def user(request):
         valid_data = TokenBackend(algorithm='HS256').decode(token,verify=True)
         user = valid_data['user']
         request.user = user
+        return Response({'username' : f'{request.user}'})
     except:
-        return Response()
+        return Response({'message':'user not found'},status=status.HTTP_404_NOT_FOUND)
+    
+    
+class UpdatePatient(RetrieveUpdateDestroyAPIView):
+    queryset = Patient.objects.all()
+    serializer_class = PatientSerializer
+    
+class UpdateDoctor(RetrieveUpdateDestroyAPIView):
+    queryset = Doctor.objects.all()
+    serializer_class = DoctorSerializer
+    
+@api_view(http_method_names=['POST'])
+def createAppointment(request):
+    serializer = AppointmentSerializer(request.data)
+    if (not serializer.is_valid()):
+        return Response({'message' : 'Provide valid data'})
+    doctor = Doctor.objects.get(id = serializer.validated_data['doctor'])
+    appointment = Appointment(
+        start_time = serializer.validated_data['start_time'],
+        end_time = serializer.validated_data['end_time'],
+        doctor = serializer.validated_data['doctor'],
+        patient = serializer.validated_data['patinet'],
+        price = doctor.price
+    )
+    appointment.save()
+    return Response({'detail':'success'}, status=status.HTTP_201_CREATED)
+
+class ListAppointments(ListAPIView):
+    queryset = Appointment.objects.all()
+    serializer_class = AppointmentSerializer

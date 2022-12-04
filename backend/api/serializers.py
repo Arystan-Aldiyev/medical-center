@@ -1,4 +1,5 @@
 from rest_framework import serializers
+from .models import Appointment
 
 
 class PatientSerializer(serializers.Serializer):
@@ -33,3 +34,9 @@ class DoctorSerializer(serializers.Serializer):
     degree = serializers.CharField(max_length=100)
     rating = serializers.IntegerField()
     adress = serializers.CharField()
+
+
+class AppointmentSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Appointment
+        fields = ['start_time','end_time','doctor','patient','price',]

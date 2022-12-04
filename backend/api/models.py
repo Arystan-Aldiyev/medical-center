@@ -26,8 +26,8 @@ class Doctor(models.Model):
     surname = models.CharField(max_length=255)
     middlename = models.CharField(max_length=255)
     contact_number = models.CharField(max_length=255)
-    department_id = models.BigIntegerField()
-    specialization_id = models.BigIntegerField()
+    department_id = models.CharField(max_length=255)
+    specialization_id = models.CharField(max_length=255)
     experience = models.IntegerField()
     category = models.CharField(max_length=255)
     price = models.FloatField()
@@ -51,3 +51,10 @@ class Patient(models.Model):
     adress = models.TextField()
     martial_status = models.CharField(max_length=255)
     registration_date = models.DateTimeField(auto_now_add=True)
+    
+class Appointment(models.Model):
+    start_time = models.DateTimeField()
+    end_time = models.DateTimeField()
+    doctor = models.BigIntegerField()
+    Patient = models.BigIntegerField()
+    price = models.FloatField(null=True,blank=True)
