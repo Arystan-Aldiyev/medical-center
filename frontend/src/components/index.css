@@ -1,0 +1,28 @@
+* {
+    text-decoration: none;
+    color: #151515;
+    scroll-behavior: smooth;
+}
+
+.header {
+    width: 100vw;
+    height: 55px;
+    background-color: #E5F4F6;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.about {
+    justify-self: left;
+    width: 260px;
+    padding: 100px;
+}
+
+.right-header {
+    display: flex;
+    justify-self: right;
+    width: 500px;
+    justify-content: space-evenly;
+
+}
