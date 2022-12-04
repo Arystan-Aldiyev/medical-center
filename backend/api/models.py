@@ -53,8 +53,7 @@ class Patient(models.Model):
     registration_date = models.DateTimeField(auto_now_add=True)
     
 class Appointment(models.Model):
-    start_time = models.DateTimeField()
-    end_time = models.DateTimeField()
+    time = models.CharField(max_length=255)
     doctor = models.BigIntegerField()
-    Patient = models.BigIntegerField()
+    patient = models.BigIntegerField()
     price = models.FloatField(null=True,blank=True)
