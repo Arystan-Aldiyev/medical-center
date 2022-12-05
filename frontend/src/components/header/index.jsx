@@ -1,10 +1,7 @@
-import { useLocation, useNavigate } from 'react-router-dom';
 import React from "react";
 import "../index.css"
-import { useState } from 'react';
 
 const Header = ({ userInfo }) => {
-    userInfo ? (console.log("OK")) : userInfo = 'none'
     return (
         <div className="header">
             {userInfo === 'none' ? (
