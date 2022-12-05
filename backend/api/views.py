@@ -1,16 +1,22 @@
 from django.shortcuts import render
-from rest_framework.decorators import api_view
-from .serializers import PatientSerializer, DoctorSerializer
+from rest_framework.decorators import api_view, permission_classes
+from .serializers import PatientSerializer, DoctorSerializer, AppointmentSerializer, UserDoctorSerializer, UserPatientSerializer
 from rest_framework.response import Response
-from .models import Patient, Doctor, User
+from .models import Patient, Doctor, User, Appointment
 from rest_framework import status
 from rest_framework_simplejwt.tokens import RefreshToken
 from django.contrib.auth import authenticate
 from django.conf import settings
 import datetime
-
+from rest_framework.generics import RetrieveUpdateDestroyAPIView, ListAPIView
+from rest_framework import status
+from rest_framework_simplejwt.tokens import AccessToken
+from itertools import chain
 # Create your views here.
 
+class ListPatients(ListAPIView):
+    queryset = Patient.objects.all()
+    serializer_class = UserPatientSerializer
 
 @api_view(http_method_names=["POST"])
 def createPatient(request):
@@ -96,7 +102,7 @@ def login(request,*args, **kwargs):
                             )
         return response
     else:
-        return Response({"message" : "Invalid username or password!!"},status=status.HTTP_404_NOT_FOUND)
+        return Response({"message" : "Invalid username or password!"},status=status.HTTP_404_NOT_FOUND)
 
 @api_view(http_method_names=["POST"])
 def logout(request):
@@ -104,14 +110,60 @@ def logout(request):
     response.delete_cookie('access_token')
     return response
 
-from rest_framework_simplejwt.backends import TokenBackend
 @api_view(http_method_names=['GET'])
 def user(request):
-    token = request.META.get('HTTP_AUTHORIZATION', " ").split(' ')[1]
-    data = {'token': token}
-    try:
-        valid_data = TokenBackend(algorithm='HS256').decode(token,verify=True)
-        user = valid_data['user']
-        request.user = user
-    except:
-        return Response()
+    user = getUser(request)
+    if user:
+        if user.is_doctor:
+            doctor = Doctor.objects.get(user=user)
+            serializer = UserDoctorSerializer(doctor)
+            serializer.is_valid()
+            return Response(data=serializer.data)
+        elif user.is_patient:
+            patient = Patient.objects.get(user=user)
+            serializer = UserPatientSerializer(patient)
+            return Response(data=serializer.data)
+    return Response({'message':'user not found'},status=status.HTTP_404_NOT_FOUND)
+    
+    
+class UpdatePatient(RetrieveUpdateDestroyAPIView):
+    queryset = Patient.objects.all()
+    serializer_class = PatientSerializer
+    
+class UpdateDoctor(RetrieveUpdateDestroyAPIView):
+    queryset = Doctor.objects.all()
+    serializer_class = DoctorSerializer
+    
+@api_view(http_method_names=['POST'])
+def createAppointment(request):
+    serializer = AppointmentSerializer(request.data)
+    if (not serializer.is_valid()):
+        return Response({'message' : 'Provide valid data'})
+    doctor = Doctor.objects.get(id = serializer.validated_data['doctor'])
+    appointment = Appointment(
+        start_time = serializer.validated_data['start_time'],
+        end_time = serializer.validated_data['end_time'],
+        doctor = serializer.validated_data['doctor'],
+        patient = serializer.validated_data['patinet'],
+        price = doctor.price
+    )
+    appointment.save()
+    return Response({'detail':'success'}, status=status.HTTP_201_CREATED)
+
+class ListAppointments(ListAPIView):
+    queryset = Appointment.objects.all()
+    serializer_class = AppointmentSerializer
+    def get(self,request):
+        user = getUser(request)
+        doctor = Appointment.objects.filter(doctor=user.id)
+        patient = Appointment.objects.filter(patient=user.id)
+        queryset = chain(doctor,patient)
+        return super().get(request)
+        
+    
+def getUser(request):
+    token = request.COOKIES.get('access_token')
+    access_token = AccessToken(token)
+    user = User.objects.get(id=access_token['user_id'])
+    return user
+    
