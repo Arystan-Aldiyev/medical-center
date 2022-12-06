@@ -3,6 +3,8 @@ import { useState } from "react";
 import "../index.css"
 import Search from "../../components/search";
 import { v4 as uuidv4 } from 'uuid';
+import Create from "../../components/popups/create";
+import Update from "../../components/popups/update";
 
 const Admin = ({ patients, doctors, backend }) => {
     const [show, setShow] = useState(true)
@@ -12,7 +14,10 @@ const Admin = ({ patients, doctors, backend }) => {
     const [columns, setColumns] = useState(patientCols)
     const [itemToSearch, setItemToSearch] = useState("")
     const [filteredList, updateFilter] = useState(patients)
-    const [add, setAdd] = useState(true)
+    const [add, setAdd] = useState(false)
+    const [edit, setEdit] = useState(false)
+    const [curRow, setCurRow] = useState()
+
 
     const changeMode = (mode) => {
         setShow(mode)
@@ -27,54 +32,16 @@ const Admin = ({ patients, doctors, backend }) => {
                 <div className="reverse">
                     <Search itemToSearch={itemToSearch} setItemToSearch={setItemToSearch} filteredList={filteredList} updateFilter={updateFilter} show={show} patients={patients} doctors={doctors} />
                     <button onClick={() => {
+                        setEdit(false)
                         setAdd(!add)
                         setItemToSearch("")
                     }} className="switch">Add new {show ? "patient" : "doctor"}</button>
-                    {add &&
-                        <div className="popup">
-                            {show ? (
-                                <form action={`${backend}/api/createPatient`}>
-                                    <input type="date" name="date_of_birth" className="inputText inputUpper" />
-                                    <input type="text" name="iin" className="inputText" />
-                                    <input type="text" name="id_number" className="inputText" />
-                                    <input type="text" name="name" className="inputText" />
-                                    <input type="text" name="surname" className="inputText" />
-                                    <input type="text" name="middlename" className="inputText" />
-                                    <input type="text" name="blood_group" className="inputText" />
-                                    <input type="text" name="emergency_contact_number" className="inputText" />
-                                    <input type="text" name="contact_number" className="inputText" />
-                                    <input type="text" name="address" className="inputText" />
-                                    <input type="text" name="marital_status" className="inputText" />
-                                    <input type="text" name="password" className="inputText inputLower" />
-                                    <button type="submit">Create!</button>
-                                </form>
-                            ) : (
-                                <form action={`${backend}/api/createDoctor`}>
-                                    <input type="date" name="date_of_birth" className="inputText inputUpper" />
-                                    <input type="text" name="iin" className="inputText" />
-                                    <input type="text" name="id_number" className="inputText" />
-                                    <input type="text" name="name" className="inputText" />
-                                    <input type="text" name="surname" className="inputText" />
-                                    <input type="text" name="middlename" className="inputText" />
-                                    <input type="text" name="address" className="inputText" />
-                                    <input type="text" name="contact_number" className="inputText" />
-                                    <input type="text" name="password" className="inputText inputLower" />
-                                    <input type="text" name="department_id" className="inputText" />
-                                    <input type="text" name="specialization_id" className="inputText" />
-                                    <input type="text" name="experience" className="inputText" />
-                                    <input type="text" name="category" className="inputText" />
-                                    <input type="text" name="price" className="inputText" />
-                                    <input type="text" name="schedule_details" className="inputText" />
-                                    <input type="text" name="rating" className="inputText" />
-                                    <input type="text" name="degree" className="inputText" />
-                                    <input type="text" name="homepage_url" className="inputText" />
-                                    <button type="submit">Create!</button>
-                                </form>
-                            )}
-                        </div>}
+                    {add && <Create backend={backend} show={show} setAdd={setAdd}/>}
+                    {edit && <Update backend={backend} show={show} row={curRow} setEdit={setEdit}/>}
                     <button onClick={() => {
                         changeMode(!show)
                         setAdd(false)
+                        setEdit(false)
                         setItemToSearch("")
                     }} className="switch">{show ? "Show doctors" : "Show patients"}</button>
                 </div>
@@ -84,7 +51,7 @@ const Admin = ({ patients, doctors, backend }) => {
                             <tr>
                                 {filteredList && columns.map((col) => (
                                     <th key={col}>{col}</th>
-                                ))
+                                    ))
                                 }
                             </tr>
                         </thead>
@@ -118,10 +85,25 @@ const Admin = ({ patients, doctors, backend }) => {
                                             <td key={uuidv4()}>{row.homepage_url}</td>
                                         </>
                                     )}
+                                    <td className="borderless"><button className="editB" onClick={() => {
+                                        setAdd(false)
+                                        if (edit) {
+                                            setEdit(false)
+                                            if (curRow !== row) {
+                                                setCurRow(row)
+                                                setEdit(true)
+                                            }
+                                        } else {
+                                            setCurRow(row)
+                                            setEdit(true)
+                                        }
+                                        setItemToSearch("")
+                                        console.log(row)
+                                    }}>Edit</button></td>
                                     {/* <td key={uuidv4()}>{row.procedure}</td>
                                     <td key={uuidv4()}>{row.department}</td>
                                     <td key={uuidv4()}>{row.price}</td>
-                                    <td key={uuidv4()}>{row.contraindications}</td> */}
+                                <td key={uuidv4()}>{row.contraindications}</td> */}
                                 </tr>
                             ))}
                         </tbody>

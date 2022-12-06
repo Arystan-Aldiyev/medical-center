@@ -193,16 +193,21 @@ td {
 
 .popup {
     width: 300px;
-    min-height: 100px;
+    height: 706px;
     position: fixed;
-    transform: translate(175%, 6%);
+    transform: translate(175%, 8%);
     display: flex;
     justify-content: center;
     background-color: #E5F4F6;
     display: block;
     text-align: center;
     flex-direction: column;
-    overflow-y: auto;
+    flex-wrap: wrap;
+    overflow-y: scroll;
+}
+
+.scrollable {
+    height: fit-content;
 }
 
 .popup button {
@@ -224,4 +229,19 @@ td {
     flex-direction: column;
     flex-wrap: wrap;
     height: fit-content;
+}
+
+.borderless {
+    border: 0px;
+}
+
+.editB {
+    width: 70px;
+    height: 50px;
+    border: solid 1px black;
+    border-radius: 8px;
+    vertical-align: middle;
+    text-align: center;
+    text-decoration: none solid white;
+    font-size: 25px;
 }

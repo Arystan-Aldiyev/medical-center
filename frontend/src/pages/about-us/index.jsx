@@ -17,6 +17,8 @@ const About = ({ userInfo }) => {
                 //     headers: { 'Content-Type': 'application/json' },
                 // });
                 // const data = await response.json()
+                
+                // Здесь сервисы захардкодены, тк они статичны и цена всегда одна
                 setServices([{
                     department: "Radiology",
                     procedure: "MRI",
