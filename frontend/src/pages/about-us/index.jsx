@@ -359,7 +359,7 @@ const About = ({ userInfo }) => {
                 </div>
             </div>
             <div className="servicesAbout" id="services">
-                <Search itemToSearch={itemToSearch} setItemToSearch={setItemToSearch} />
+                <Search itemToSearch={itemToSearch} setItemToSearch={setItemToSearch} show={""} patients={""} doctors={""} where={"about"}/>
                 <Services services={services} itemToSearch={itemToSearch} />
             </div>
         </div>

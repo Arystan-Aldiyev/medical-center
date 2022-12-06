@@ -3,19 +3,23 @@ import "../index.css"
 import { ReactComponent as SearchIcon } from '../../assets/SearchIcon.svg'
 import { useEffect } from "react";
 
-const Search = ({ itemToSearch, setItemToSearch, filteredList, updateFilter, show, patients, doctors }) => {
-    
+const Search = ({ itemToSearch, setItemToSearch, updateFilter, show, patients, doctors, where }) => {
+
     useEffect(() => {
         (
             async () => {
-                console.log(itemToSearch)
-                if (show) {
+                if (where === "admin") {
                     console.log(itemToSearch)
-                    const temp = itemToSearch !== "" ? patients?.filter((item) => item.id_number.toLowerCase().includes(itemToSearch) || item.iin.toLowerCase().includes(itemToSearch)) : patients
-                    updateFilter(temp)
+                    if (show) {
+                        console.log(itemToSearch)
+                        const temp = itemToSearch !== "" ? patients?.filter((item) => item.id_number.toLowerCase().includes(itemToSearch) || item.iin.toLowerCase().includes(itemToSearch)) : patients
+                        updateFilter(temp)
+                    } else {
+                        const temp = itemToSearch !== "" ? doctors?.filter((item) => item.id_number.toLowerCase().includes(itemToSearch) || item.iin.toLowerCase().includes(itemToSearch)) : doctors
+                        updateFilter(temp)
+                    }
                 } else {
-                    const temp = itemToSearch !== "" ? doctors?.filter((item) => item.id_number.toLowerCase().includes(itemToSearch) || item.iin.toLowerCase().includes(itemToSearch)) : doctors
-                    updateFilter(temp)
+                    setItemToSearch(itemToSearch)
                 }
             }
         )();

@@ -30,7 +30,7 @@ const Admin = ({ patients, doctors, backend }) => {
         <div className="aboutPage">
             <div className="servicesAbout" id="services">
                 <div className="reverse">
-                    <Search itemToSearch={itemToSearch} setItemToSearch={setItemToSearch} filteredList={filteredList} updateFilter={updateFilter} show={show} patients={patients} doctors={doctors} />
+                    <Search itemToSearch={itemToSearch} setItemToSearch={setItemToSearch} filteredList={filteredList} updateFilter={updateFilter} show={show} patients={patients} doctors={doctors} where={"admin"}/>
                     <button onClick={() => {
                         setEdit(false)
                         setAdd(!add)
