@@ -5,10 +5,9 @@ import Patient from "./pages/patient";
 import Doctor from "./pages/doctor";
 import About from "./pages/about-us";
 import Login from "./pages/login";
-import { toBePartiallyChecked } from "@testing-library/jest-dom/dist/matchers";
 
 const App = () => {
-  const [userInfo, setUserInfo] = useState()
+  const [userInfo, setUserInfo] = useState("none")
   const [patients, setPatients] = useState()
   const [doctors, setDoctors] = useState()
   const backend = "http://localhost:8000"
@@ -19,13 +18,13 @@ const App = () => {
           headers: { 'Content-Type': 'application/json' },
           credentials: 'include'
         })
-        if (typeof (response) === "undefined" || response.status === 404) {
-          console.log("Not logged in")
-          setUserInfo("none")
-        } else {
+        if (response && response.status === 200) {
           const data = await response.json()
           console.log(data)
           setUserInfo(data)
+        } else {
+          console.log("Not logged in")
+          setUserInfo("none")
         }
 
         //Testing purposes
@@ -184,10 +183,10 @@ const App = () => {
   return (
     <BrowserRouter>
       <Routes>
-        {userInfo && userInfo.userType === "admin" && <Route path="/" element={<Admin patients={patients} doctors={doctors} backend={backend} />} />}
-        {userInfo && userInfo.userType === "patient" && <Route path="/" element={<Patient />} />}
-        {userInfo && userInfo.userType === "doctor" && <Route path="/" element={<Doctor />} />}
-        {userInfo && userInfo.userType === "none" && <Route path="/" element={<About userInfo={userInfo} />} />}
+        {userInfo.userType === "admin" && <Route path="/" element={<Admin patients={patients} doctors={doctors} backend={backend} />} />}
+        {userInfo.userType === "patient" && <Route path="/" element={<Patient />} />}
+        {userInfo.userType === "doctor" && <Route path="/" element={<Doctor />} />}
+        {userInfo === "none" && <Route path="/" element={<About userInfo={userInfo} />} />}
         <Route path="/about" element={<About userInfo={userInfo} />} />
         <Route path="/login" element={<Login backend={backend} />} />
       </Routes>
