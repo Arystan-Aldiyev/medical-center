@@ -32,12 +32,12 @@ const App = () => {
         await fetch(`${backend}/api/patients/`, {
           headers: { 'Content-Type': 'application/json' },
           credentials: 'include'
-        }).then((res) => { res.json() }).then((data) => { setPatients(data) })
+        }).then((res) => { return res.json() }).then((data) => { setPatients(data); console.log(data) })
 
         await fetch(`${backend}/api/doctors/`, {
           headers: { 'Content-Type': 'application/json' },
           credentials: 'include'
-        }).then((res) => { res.json() }).then((data) => { setDoctors(data) })
+        }).then((res) => { return res.json() }).then((data) => { setDoctors(data); console.log(data) })
       }
       //Testing purposes
       // setUserInfo({
