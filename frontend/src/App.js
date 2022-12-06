@@ -9,12 +9,13 @@ import Login from "./pages/login";
 
 const App = () => {
   const [userInfo, setUserInfo] = useState("none")
-  const backend = "localhost:8000"
+  const backend = "http://localhost:8000"
   useEffect(() => {
     (
       async () => {
         const response = await fetch(`${backend}/api/user/`, {
           headers: { 'Content-Type': 'application/json' },
+          credentials: 'include',
         });
         if (response.status == 404) {
           setUserInfo('none')
@@ -36,7 +37,7 @@ const App = () => {
         {userInfo === "patient" && <Route path="/" element={<Patient />} />}
         {userInfo === "doctor" && <Route path="/" element={<Doctor />} />}
         {userInfo === "none" && <Route path="/" element={<About />} />}
-        <Route path="/about" element={<About userInfo={userInfo}/>} />
+        <Route path="/about" element={<About userInfo={userInfo} />} />
         <Route path="/login" element={<Login backend={backend} />} />
       </Routes>
     </BrowserRouter>

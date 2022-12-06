@@ -11,13 +11,13 @@ const Login = ({ backend }) => {
         e.preventDefault()
         await fetch(`${backend}/api/login/`, {
             method: 'POST',
-            headers: {'Content-Type': 'application/json'},
+            headers: { 'Content-Type': 'application/json' },
             credentials: 'include',
             body: JSON.stringify({
                 username,
                 password
             })
-        }).then((response) => response.json()).then((data)=> {
+        }).then((response) => response.json()).then((data) => {
             if (data.message === "Invalid username or password!") {
                 alert(data.message);
             } else {
