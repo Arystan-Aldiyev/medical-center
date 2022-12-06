@@ -5,9 +5,10 @@ import medical from '../../assets/medical.jpg'
 import comp from '../../assets/comp.jpg'
 import med from '../../assets/doctor.jpg'
 import Services from "../../components/services";
+import Search from "../../components/search";
 
 const About = ({ userInfo }) => {
-
+    const [itemToSearch, setItemToSearch] = useState("")
     const [services, setServices] = useState()
     useEffect(() => {
         (
@@ -16,25 +17,291 @@ const About = ({ userInfo }) => {
                 //     headers: { 'Content-Type': 'application/json' },
                 // });
                 // const data = await response.json()
-                const data = {
-                    "medicine": ["some procedure", "some procedure", "some procedure", "some procedure", "some procedure", "some procedure"],
-                    "surgery": ["some procedure", "some procedure", "some procedure", "some procedure", "some procedure", "some procedure"],
-                    "gynecology": ["some procedure", "some procedure", "some procedure", "some procedure", "some procedure", "some procedure"],
-                    "obstetrics": ["some procedure", "some procedure", "some procedure", "some procedure", "some procedure", "some procedure"],
-                    "pediatrics": ["some procedure", "some procedure", "some procedure", "some procedure", "some procedure", "some procedure"],
-                    "radiology": ["some procedure", "some procedure", "some procedure", "some procedure", "some procedure", "some procedure"],
-                    "eye": ["some procedure", "some procedure", "some procedure", "some procedure", "some procedure", "some procedure"],
-                    "ENT": ["some procedure", "some procedure", "some procedure", "some procedure", "some procedure", "some procedure"],
-                    "dental": ["some procedure", "some procedure", "some procedure", "some procedure", "some procedure", "some procedure"],
-                    "orthopedics": ["some procedure", "some procedure", "some procedure", "some procedure", "some procedure", "some procedure"],
-                    "neurology": ["some procedure", "some procedure", "some procedure", "some procedure", "some procedure", "some procedure"],
-                    "cardiology": ["some procedure", "some procedure", "some procedure", "some procedure", "some procedure", "some procedure"],
-                    "psychiatry": ["some procedure", "some procedure", "some procedure", "some procedure", "some procedure", "some procedure"],
-                    "skin": ["some procedure", "some procedure", "some procedure", "some procedure", "some procedure", "some procedure"]
+                
+                // Здесь сервисы захардкодены, тк они статичны и цена всегда одна
+                setServices([{
+                    department: "Radiology",
+                    procedure: "MRI",
+                    price: "$100",
+                    contraindications: "bla bla bla bla bla bla bla bla"
+                }, {
+                    department: "Radiology",
+                    procedure: "Ultrasound",
+                    price: "$200",
+                    contraindications: "bla bla bla bla bla bla bla bla"
+                }, {
+                    department: "Radiology",
+                    procedure: "Computer Tomography scanning",
+                    price: "$300",
+                    contraindications: "bla bla bla bla bla bla bla bla"
+                }, {
+                    department: "Radiology",
+                    procedure: "X-ray scanning",
+                    price: "$400",
+                    contraindications: "bla bla bla bla bla bla bla bla"
+                }, {
+                    department: "Medicine",
+                    procedure: "procedure 1",
+                    price: "$100",
+                    contraindications: "bla bla bla bla bla bla bla bla"
+                }, {
+                    department: "Medicine",
+                    procedure: "procedure 2",
+                    price: "$200",
+                    contraindications: "bla bla bla bla bla bla bla bla"
+                }, {
+                    department: "Medicine",
+                    procedure: "procedure 3",
+                    price: "$300",
+                    contraindications: "bla bla bla bla bla bla bla bla"
+                }, {
+                    department: "Medicine",
+                    procedure: "procedure 4",
+                    price: "$400",
+                    contraindications: "bla bla bla bla bla bla bla bla"
+                }, {
+                    department: "Surgery",
+                    procedure: "procedure 1",
+                    price: "$100",
+                    contraindications: "bla bla bla bla bla bla bla bla"
+                }, {
+                    department: "Surgery",
+                    procedure: "procedure 2",
+                    price: "$200",
+                    contraindications: "bla bla bla bla bla bla bla bla"
+                }, {
+                    department: "Surgery",
+                    procedure: "procedure 3",
+                    price: "$300",
+                    contraindications: "bla bla bla bla bla bla bla bla"
+                }, {
+                    department: "Surgery",
+                    procedure: "procedure 4",
+                    price: "$400",
+                    contraindications: "bla bla bla bla bla bla bla bla"
+                }, {
+                    department: "Gynecology",
+                    procedure: "procedure 1",
+                    price: "$100",
+                    contraindications: "bla bla bla bla bla bla bla bla"
+                }, {
+                    department: "Gynecology",
+                    procedure: "procedure 2",
+                    price: "$200",
+                    contraindications: "bla bla bla bla bla bla bla bla"
+                }, {
+                    department: "Gynecology",
+                    procedure: "procedure 3",
+                    price: "$300",
+                    contraindications: "bla bla bla bla bla bla bla bla"
+                }, {
+                    department: "Gynecology",
+                    procedure: "procedure 4",
+                    price: "$400",
+                    contraindications: "bla bla bla bla bla bla bla bla"
+                }, {
+                    department: "Obsterics",
+                    procedure: "procedure 1",
+                    price: "$100",
+                    contraindications: "bla bla bla bla bla bla bla bla"
+                }, {
+                    department: "Obsterics",
+                    procedure: "procedure 2",
+                    price: "$200",
+                    contraindications: "bla bla bla bla bla bla bla bla"
+                }, {
+                    department: "Obsterics",
+                    procedure: "procedure 3",
+                    price: "$300",
+                    contraindications: "bla bla bla bla bla bla bla bla"
+                }, {
+                    department: "Obsterics",
+                    procedure: "procedure 4",
+                    price: "$400",
+                    contraindications: "bla bla bla bla bla bla bla bla"
+                }, {
+                    department: "Pediatrics",
+                    procedure: "procedure 1",
+                    price: "$100",
+                    contraindications: "bla bla bla bla bla bla bla bla"
+                }, {
+                    department: "Pediatrics",
+                    procedure: "procedure 2",
+                    price: "$200",
+                    contraindications: "bla bla bla bla bla bla bla bla"
+                }, {
+                    department: "Pediatrics",
+                    procedure: "procedure 3",
+                    price: "$300",
+                    contraindications: "bla bla bla bla bla bla bla bla"
+                }, {
+                    department: "Pediatrics",
+                    procedure: "procedure 4",
+                    price: "$400",
+                    contraindications: "bla bla bla bla bla bla bla bla"
+                }, {
+                    department: "Eye",
+                    procedure: "procedure 1",
+                    price: "$100",
+                    contraindications: "bla bla bla bla bla bla bla bla"
+                }, {
+                    department: "Eye",
+                    procedure: "procedure 2",
+                    price: "$200",
+                    contraindications: "bla bla bla bla bla bla bla bla"
+                }, {
+                    department: "Eye",
+                    procedure: "procedure 3",
+                    price: "$300",
+                    contraindications: "bla bla bla bla bla bla bla bla"
+                }, {
+                    department: "Eye",
+                    procedure: "procedure 4",
+                    price: "$400",
+                    contraindications: "bla bla bla bla bla bla bla bla"
+                }, {
+                    department: "ENT",
+                    procedure: "procedure 1",
+                    price: "$100",
+                    contraindications: "bla bla bla bla bla bla bla bla"
+                }, {
+                    department: "ENT",
+                    procedure: "procedure 2",
+                    price: "$200",
+                    contraindications: "bla bla bla bla bla bla bla bla"
+                }, {
+                    department: "ENT",
+                    procedure: "procedure 3",
+                    price: "$300",
+                    contraindications: "bla bla bla bla bla bla bla bla"
+                }, {
+                    department: "ENT",
+                    procedure: "procedure 4",
+                    price: "$400",
+                    contraindications: "bla bla bla bla bla bla bla bla"
+                }, {
+                    department: "Orthopedics",
+                    procedure: "procedure 1",
+                    price: "$100",
+                    contraindications: "bla bla bla bla bla bla bla bla"
+                }, {
+                    department: "Orthopedics",
+                    procedure: "procedure 2",
+                    price: "$200",
+                    contraindications: "bla bla bla bla bla bla bla bla"
+                }, {
+                    department: "Orthopedics",
+                    procedure: "procedure 3",
+                    price: "$300",
+                    contraindications: "bla bla bla bla bla bla bla bla"
+                }, {
+                    department: "Orthopedics",
+                    procedure: "procedure 4",
+                    price: "$400",
+                    contraindications: "bla bla bla bla bla bla bla bla"
+                }, {
+                    department: "Neurology",
+                    procedure: "procedure 1",
+                    price: "$100",
+                    contraindications: "bla bla bla bla bla bla bla bla"
+                }, {
+                    department: "Neurology",
+                    procedure: "procedure 2",
+                    price: "$200",
+                    contraindications: "bla bla bla bla bla bla bla bla"
+                }, {
+                    department: "Neurology",
+                    procedure: "procedure 3",
+                    price: "$300",
+                    contraindications: "bla bla bla bla bla bla bla bla"
+                }, {
+                    department: "Neurology",
+                    procedure: "procedure 4",
+                    price: "$400",
+                    contraindications: "bla bla bla bla bla bla bla bla"
+                }, {
+                    department: "Cardiology",
+                    procedure: "procedure 1",
+                    price: "$100",
+                    contraindications: "bla bla bla bla bla bla bla bla"
+                }, {
+                    department: "Cardiology",
+                    procedure: "procedure 2",
+                    price: "$200",
+                    contraindications: "bla bla bla bla bla bla bla bla"
+                }, {
+                    department: "Cardiology",
+                    procedure: "procedure 3",
+                    price: "$300",
+                    contraindications: "bla bla bla bla bla bla bla bla"
+                }, {
+                    department: "Cardiology",
+                    procedure: "procedure 4",
+                    price: "$400",
+                    contraindications: "bla bla bla bla bla bla bla bla"
+                }, {
+                    department: "Psychiatry",
+                    procedure: "procedure 1",
+                    price: "$100",
+                    contraindications: "bla bla bla bla bla bla bla bla"
+                }, {
+                    department: "Psychiatry",
+                    procedure: "procedure 2",
+                    price: "$200",
+                    contraindications: "bla bla bla bla bla bla bla bla"
+                }, {
+                    department: "Psychiatry",
+                    procedure: "procedure 3",
+                    price: "$300",
+                    contraindications: "bla bla bla bla bla bla bla bla"
+                }, {
+                    department: "Psychiatry",
+                    procedure: "procedure 4",
+                    price: "$400",
+                    contraindications: "bla bla bla bla bla bla bla bla"
+                }, {
+                    department: "Skin",
+                    procedure: "procedure 1",
+                    price: "$100",
+                    contraindications: "bla bla bla bla bla bla bla bla"
+                }, {
+                    department: "Skin",
+                    procedure: "procedure 2",
+                    price: "$200",
+                    contraindications: "bla bla bla bla bla bla bla bla"
+                }, {
+                    department: "Skin",
+                    procedure: "procedure 3",
+                    price: "$300",
+                    contraindications: "bla bla bla bla bla bla bla bla"
+                }, {
+                    department: "Skin",
+                    procedure: "procedure 4",
+                    price: "$400",
+                    contraindications: "bla bla bla bla bla bla bla bla"
+                }, {
+                    department: "Dental",
+                    procedure: "procedure 1",
+                    price: "$100",
+                    contraindications: "bla bla bla bla bla bla bla bla"
+                }, {
+                    department: "Dental",
+                    procedure: "procedure 2",
+                    price: "$200",
+                    contraindications: "bla bla bla bla bla bla bla bla"
+                }, {
+                    department: "Dental",
+                    procedure: "procedure 3",
+                    price: "$300",
+                    contraindications: "bla bla bla bla bla bla bla bla"
+                }, {
+                    department: "Dental",
+                    procedure: "procedure 4",
+                    price: "$400",
+                    contraindications: "bla bla bla bla bla bla bla bla"
                 }
-                setServices(data)
+                ])
             }
-
         )();
     }, [])
 
@@ -42,7 +309,7 @@ const About = ({ userInfo }) => {
         <div className="aboutPage">
             <div className="upper">
                 <Header userInfo={userInfo} />
-                <img src={medical} alt="Background image" className="upperImg" />
+                <img src={medical} alt="" className="upperImg" />
                 <div className="bg-text">
                     <h1>Enjoy  <span style={{ color: "#656293" }}> Qualitative service</span></h1>
                     <p>Stay healthy with us!</p>
@@ -56,15 +323,15 @@ const About = ({ userInfo }) => {
             </div>
             <div className="aboutInfo" id="about">
                 <div className="infoBlock">
-                    <img src={comp} alt="Image" className="aboutImg" />
+                    <img src={comp} alt="" className="aboutImg" />
                     <div className="words">
                         <h1>Our vision:</h1>
                         <h3>A company that makes it hard to stay ill</h3>
                         <h3>A company that provides comfort in all its services</h3>
                         <h3>A company that really cares about clients' health</h3>
                         <h3>A company that wants to become a golden standard for all the healthcare providers</h3>
+                        <h3>-----------------------</h3>
 
-                        <h1>-----------------------</h1>
                         <h3 style={{ fontSize: "60px", padding: "0" }}>31 BRANCHES</h3>
                         <h3 style={{ fontSize: "50px" }}>22 CITIES</h3>
                         <h3 style={{ fontSize: "40px" }}>6 COUNTRIES</h3>
@@ -88,17 +355,13 @@ const About = ({ userInfo }) => {
                         <h3><a href="mailto:somerandomclinicemail@bestmedicalcenter.com">somerandomclinicemail@bestmedicalcenter.com</a></h3>
                         <h3>1881 Poe Road, Myrtle Beach, South Carolina</h3>
                     </div>
-                    <img src={med} alt="Image" className="aboutImg" />
+                    <img src={med} alt="" className="aboutImg" />
                 </div>
             </div>
             <div className="servicesAbout" id="services">
-                {/* <Services services={services} /> */}
-                тут потом услуги
+                <Search itemToSearch={itemToSearch} setItemToSearch={setItemToSearch} />
+                <Services services={services} itemToSearch={itemToSearch} />
             </div>
-            {/* {services ? Object.keys(services).forEach((key) => {
-                console.log(key + ":\n" + services[key])
-            }) : console.log('netu')} */}
-
         </div>
     )
 };

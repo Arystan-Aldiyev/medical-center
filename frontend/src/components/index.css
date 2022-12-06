@@ -24,5 +24,52 @@
     justify-self: right;
     width: 500px;
     justify-content: space-evenly;
+}
 
+.servicesList table {
+    width: 100%;
+}
+
+.servicesList th, td {
+    width: 25%;
+    border: 1px solid black;
+    padding: 20px;
+}
+
+.searchDiv {
+    width: 460px;
+    height: 48px;
+    margin-left: 30px;
+    margin-right: 40px;
+    margin-bottom: 20px;
+    border-radius: 15px;
+    padding: 0;
+    line-height: 48%;
+    background: #F3F3F3;
+    display: flex;
+    align-items: center;
+    border: 1px solid black;
+}
+
+.searchIcon {
+    margin-left: 26px;
+}
+
+.searchBox {
+    width: 300px;
+    height: 48px;
+    display: inline-block;
+    /* margin-left: 30px; */
+    border-radius: 15px;
+    /* margin-right: 95.76px; */
+    line-height: 48%;
+    background: transparent;
+    border-style: none;
+    border: none;
+    outline: none;
+    margin-left: 12px;
+}
+
+.searchBox:focus {
+    outline: none;
 }
