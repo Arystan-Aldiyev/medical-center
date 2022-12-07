@@ -4,8 +4,10 @@ import "../index.css"
 import { v4 as uuidv4 } from 'uuid';
 import Search from "../../components/search";
 import UpdateMed from "../../components/popups/updateMed";
+import { useNavigate } from "react-router-dom";
 
 const Doctor = ({ userInfo, patients, backend, medicaments, appointments, setUserInfo }) => {
+    const navigate = useNavigate()
     const columns = ["ID number", "IIN", "Name", "Surname"]
     const [itemToSearch, setItemToSearch] = useState("")
     const [show, setShow] = useState()
@@ -15,6 +17,17 @@ const Doctor = ({ userInfo, patients, backend, medicaments, appointments, setUse
     const [edit, setEdit] = useState(false)
     const [state, setState] = useState()
 
+    const logout = async (e) => {
+        e.preventDefault();
+        await fetch(`${backend}/api/logout/`, {
+            method: "POST",
+            headers: { 'Content-Type': 'application/json' },
+            credentials: 'include'
+        })
+        setUserInfo("none")
+        navigate("/")
+        window.location.reload()
+    }
 
     let filteredList = patients
     filteredList = typeof (itemToSearch) !== "undefined" ? filteredList?.filter((item) => item.id_number.toLowerCase().includes(itemToSearch) || item.iin.toLowerCase().includes(itemToSearch) || item.name.toLowerCase().includes(itemToSearch) || item.surname.toLowerCase().includes(itemToSearch)) : filteredList

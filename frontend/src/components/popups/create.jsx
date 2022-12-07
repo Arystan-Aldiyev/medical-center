@@ -11,7 +11,7 @@ const Create = ({ show, backend, setAdd }) => {
             <div onClick={() => setAdd(false)}>Close &times;</div>
             <div className="scrollable">
                 {show ? (
-                    <form action={`${backend}/api/createPatient`} method="POST">
+                    <form action={`${backend}/api/createPatient/`} method="POST">
                         <input type="date" name="date_of_birth" className="inputText inputUpper" required />
                         <input type="text" name="iin" className="inputText" placeholder="IIN" required />
                         <input type="text" name="id_number" className="inputText" placeholder="ID number" required />
@@ -27,7 +27,7 @@ const Create = ({ show, backend, setAdd }) => {
                         <button type="submit">Create!</button>
                     </form>
                 ) : (
-                    <form action={`${backend}/api/createDoctor`} method="POST">
+                    <form action={`${backend}/api/createDoctor/`} method="POST">
                         <input type="date" name="date_of_birth" className="inputText inputUpper" required />
                         <input type="text" name="iin" className="inputText" placeholder="IIN" required />
                         <input type="text" name="id_number" className="inputText" placeholder="ID number" required />
