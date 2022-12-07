@@ -9,21 +9,19 @@ import Appointment from "./pages/appointment";
 import Report from "./pages/report";
 
 const App = () => {
-  const navigate = useNavigate()
   const [userInfo, setUserInfo] = useState("none")
   const [patients, setPatients] = useState()
   const [doctors, setDoctors] = useState()
   const [medicaments, setMedicaments] = useState()
   const [appointments, setAppointments] = useState()
   const backend = "http://localhost:8000"
-  const logout = async () => {
+  const logout = async (e) => {
     e.preventDefault();
     await fetch(`${backend}/api/logout/`, {
       method: "POST",
       headers: { 'Content-Type': 'application/json' },
       credentials: 'include'
     })
-    navigate("/")
     window.location.reload()
   }
   useEffect(() => {
