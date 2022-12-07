@@ -48,6 +48,7 @@ const Admin = ({ patients, doctors, backend, setUserInfo }) => {
                 credentials: 'include'
             })
         }
+        navigate("/")
         window.location.reload()
     }
 
