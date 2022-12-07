@@ -36,6 +36,7 @@ const Login = ({ backend, setUserInfo }) => {
                 <input name="password" className="inputText inputLower" type="text" id="inputText" placeholder="Your password" onChange={(e) => setPassword(e.target.value)} />
                 <button type="submit">Login</button>
             </form>
+            <></>
         </div>
     )
 };
