@@ -91,20 +91,12 @@ const Admin = ({ patients, doctors, backend }) => {
                                             <td key={uuidv4()}>{row.homepage_url}</td>
                                         </>
                                     )}
-                                    <td className="borderless"><button className="editB" onClick={() => {
+                                    <td className="borderless"><button className="editB" onClick={async() => {
                                         setAdd(false)
-                                        if (edit) {
-                                            setEdit(false)
-                                            if (curRow !== row) {
-                                                setCurRow(row)
-                                                setEdit(true)
-                                            }
-                                        } else {
-                                            setCurRow(row)
-                                            setEdit(true)
-                                        }
+                                        await setEdit(false)
+                                        await setCurRow(row)
+                                        setEdit(true)
                                         setItemToSearch("")
-                                        console.log(row)
                                     }}>Edit</button></td>
                                     <td className="borderless"><button className="editB" onClick={() => { deleteFunct(row) }}>Delete</button></td>
                                     {/* <td key={uuidv4()}>{row.procedure}</td>

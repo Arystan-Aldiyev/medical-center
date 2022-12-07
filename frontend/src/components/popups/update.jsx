@@ -5,6 +5,13 @@ import { useEffect, useState } from "react";
 const Update = ({ show, backend, row, setEdit }) => {
     const [state, setState] = useState(row)
 
+    useEffect(() => {
+        (
+          async () => {
+            
+          }
+        )();
+      }, [row])
     return (
         <div className="popup">
             <div onClick={() => setEdit(false)}>Close &times;</div>
@@ -18,11 +25,10 @@ const Update = ({ show, backend, row, setEdit }) => {
                         <input type="text" name="surname" className="inputText" placeholder="Surname" required value={state.surname} onChange={(e) => {setState({...state, [e.target.name]: e.target.value})}}/>
                         <input type="text" name="middlename" className="inputText" placeholder="Middlename" required value={state.middlename} onChange={(e) => {setState({...state, [e.target.name]: e.target.value})}}/>
                         <input type="text" name="blood_group" className="inputText" placeholder="Blood group" required value={state.blood_group} onChange={(e) => {setState({...state, [e.target.name]: e.target.value})}}/>
-                        <input type="text" name="emergency_contact_number" className="inputText" placeholder="Emergency concact number" required value={row.emergency_contact_number} onChange={(e) => {setState({...state, [e.target.name]: e.target.value})}}/> 
+                        <input type="text" name="emergency_contact_number" className="inputText" placeholder="Emergency concact number" required value={state.emergency_contact_number} onChange={(e) => {setState({...state, [e.target.name]: e.target.value})}}/> 
                         <input type="text" name="contact_number" className="inputText" placeholder="Contact number" required value={state.contact_number} onChange={(e) => {setState({...state, [e.target.name]: e.target.value})}}/>
                         <input type="text" name="address" className="inputText" placeholder="Address" required value={state.address} onChange={(e) => {setState({...state, [e.target.name]: e.target.value})}}/>
-                        <input type="text" name="marital_status" className="inputText" placeholder="Marital status" required value={state.marital_status} onChange={(e) => {setState({...state, [e.target.name]: e.target.value})}}/>
-                        <input type="text" name="password" className="inputText inputLower" placeholder="Password" required value={state.password} onChange={(e) => {setState({...state, [e.target.name]: e.target.value})}}/>
+                        <input type="text" name="marital_status" className="inputText inputLower" placeholder="Marital status" required value={state.marital_status} onChange={(e) => {setState({...state, [e.target.name]: e.target.value})}}/>
                         <button type="submit">Update!</button>
                     </form>
                 ) : (
@@ -72,8 +78,7 @@ const Update = ({ show, backend, row, setEdit }) => {
                         <input type="text" name="schedule_details" className="inputText" placeholder="Schedule details" required value={state.schedule_details} onChange={(e) => {setState({...state, [e.target.name]: e.target.value})}}/>
                         <input type="text" name="degree" className="inputText" placeholder="Degree (Bs / Ms)" required value={state.degree} onChange={(e) => {setState({...state, [e.target.name]: e.target.value})}}/>
                         <input type="number" name="rating" className="inputText" placeholder="Rating out of 10" min={0} step={1} max={10} required value={state.rating} onChange={(e) => {setState({...state, [e.target.name]: e.target.value})}}/>
-                        <input type="text" name="homepage_url" className="inputText" placeholder="Homepage url" required value={state.homepage_url} onChange={(e) => {setState({...state, [e.target.name]: e.target.value})}}/>
-                        <input type="text" name="password" className="inputText inputLower" placeholder="Password" required value={state.password} onChange={(e) => {setState({...state, [e.target.name]: e.target.value})}}/>
+                        <input type="text" name="homepage_url" className="inputText inputLower" placeholder="Homepage url" required value={state.homepage_url} onChange={(e) => {setState({...state, [e.target.name]: e.target.value})}}/>
                         <button type="submit">Create!</button>
                     </form>
                 )}
