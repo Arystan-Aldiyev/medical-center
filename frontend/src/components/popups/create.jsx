@@ -1,8 +1,10 @@
 import React from "react";
 import "../index.css"
 import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Create = ({ show, backend, setAdd }) => {
+    const navigate = useNavigate()
 
     return (
         <div className="popup">

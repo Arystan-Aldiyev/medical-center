@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import "../index.css"
 import { v4 as uuidv4 } from 'uuid';
 
-const Patient = ({ userInfo, backend, medicaments, appointments }) => {
+const Patient = ({ userInfo, backend, medicaments, appointments, setUserInfo }) => {
     const [apps, setApps] = useState(appointments)
     const [meds, setMeds] = useState(medicaments)
     const [show, setShow] = useState(true)
@@ -16,6 +16,7 @@ const Patient = ({ userInfo, backend, medicaments, appointments }) => {
             headers: { 'Content-Type': 'application/json' },
             credentials: 'include'
         })
+        setUserInfo("none")
         window.location.reload()
     }
 

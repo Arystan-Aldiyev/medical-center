@@ -457,12 +457,12 @@ const App = () => {
   return (
     <BrowserRouter>
       <Routes>
-        {userInfo.userType === "admin" && <Route path="/" element={<Admin patients={patients} doctors={doctors} backend={backend} />} />}
+        {userInfo.userType === "admin" && <Route path="/" element={<Admin patients={patients} doctors={doctors} backend={backend} setUserInfo={setUserInfo} />} />}
         {userInfo.userType === "admin" && <Route path="/report" element={<Report appointments={appointments} />} />}
-        {userInfo.userType === "patient" && <Route path="/" element={<Patient userInfo={userInfo} backend={backend} medicaments={medicaments} appointments={appointments} />} />}
+        {userInfo.userType === "patient" && <Route path="/" element={<Patient userInfo={userInfo} backend={backend} medicaments={medicaments} appointments={appointments} setUserInfo={setUserInfo} />} />}
         {userInfo.userType === "patient" && <Route path="/makeAppointment" element={<Appointment backend={backend} userInfo={userInfo} doctors={doctors} />} />}
-        {userInfo.userType === "doctor" && <Route path="/" element={<Doctor userInfo={userInfo} patients={patients} backend={backend} medicaments={medicaments} appointments={appointments} />} />}
-        {userInfo === "none" && <Route path="/" element={<About userInfo={userInfo} />} />}
+        {userInfo.userType === "doctor" && <Route path="/" element={<Doctor userInfo={userInfo} patients={patients} backend={backend} medicaments={medicaments} appointments={appointments} setUserInfo={setUserInfo} />} />}
+        {userInfo === "none" && <Route path="/" element={<About userInfo={userInfo} backend={backend} setUserInfo={setUserInfo} />} />}
         {userInfo === "none" && <Route path="/login" element={<Login backend={backend} />} />}
         <Route path="/about" element={<About userInfo={userInfo} />} />
 

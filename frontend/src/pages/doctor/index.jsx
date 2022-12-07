@@ -5,7 +5,7 @@ import { v4 as uuidv4 } from 'uuid';
 import Search from "../../components/search";
 import UpdateMed from "../../components/popups/updateMed";
 
-const Doctor = ({ userInfo, patients, backend, medicaments, appointments }) => {
+const Doctor = ({ userInfo, patients, backend, medicaments, appointments, setUserInfo }) => {
     const columns = ["ID number", "IIN", "Name", "Surname"]
     const [itemToSearch, setItemToSearch] = useState("")
     const [show, setShow] = useState()
@@ -14,6 +14,8 @@ const Doctor = ({ userInfo, patients, backend, medicaments, appointments }) => {
     const [curRow, setCurRow] = useState()
     const [edit, setEdit] = useState(false)
     const [state, setState] = useState()
+
+
     let filteredList = patients
     filteredList = typeof (itemToSearch) !== "undefined" ? filteredList?.filter((item) => item.id_number.toLowerCase().includes(itemToSearch) || item.iin.toLowerCase().includes(itemToSearch) || item.name.toLowerCase().includes(itemToSearch) || item.surname.toLowerCase().includes(itemToSearch)) : filteredList
 
@@ -129,6 +131,15 @@ const Doctor = ({ userInfo, patients, backend, medicaments, appointments }) => {
     }
     return (
         <div className="aboutPage">
+            <div className="header">
+                <a href='/about' className='about'>Medica inc.</a>
+                <div className='right-header'>
+                    <a href="#" onClick={() => { setShow(0); setStats(0); setEdit(false) }}> My appointments</a>
+                    <a href="#" onClick={() => { setShow(1); setStats(0); setEdit(false) }}>Search patient</a>
+                    <a href='/'>{userInfo.name} {userInfo.surname}</a>
+                    <a href="/" onClick={(e) => logout(e)}>Log out</a>
+                </div>
+            </div>
             <div className="buttons">
                 <button className="switch" onClick={() => { setShow(0); setStats(0); setEdit(false) }}>My appointments</button>
                 <button className="switch" onClick={() => { setShow(1); setStats(0); setEdit(false) }}>Search patient</button>

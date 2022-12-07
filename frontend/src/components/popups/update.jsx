@@ -1,8 +1,10 @@
 import React from "react";
 import "../index.css"
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Update = ({ show, backend, row, setEdit }) => {
+    const navigate = useNavigate()
     const [state, setState] = useState(row)
 
     return (
@@ -10,7 +12,7 @@ const Update = ({ show, backend, row, setEdit }) => {
             <div onClick={() => setEdit(false)}>Close &times;</div>
             <div className="scrollable">
                 {show ? (
-                    <form action={`${backend}/api/updatePatient/${row.id}/`} method="PUT">
+                    <form action={`${backend}/api/updatePatient/${row.id}/`} method="PUT" onSubmit={() => navigate("/")}>
                         <input type="date" name="date_of_birth" className="inputText inputUpper" required value={state.date_of_birth} onChange={(e) => { setState({ ...state, [e.target.name]: e.target.value }) }} />
                         <input type="text" name="iin" className="inputText" placeholder="IIN" required value={state.iin} onChange={(e) => { setState({ ...state, [e.target.name]: e.target.value }) }} />
                         <input type="text" name="id_number" className="inputText" placeholder="ID number" required value={state.id_number} onChange={(e) => { setState({ ...state, [e.target.name]: e.target.value }) }} />
@@ -25,7 +27,7 @@ const Update = ({ show, backend, row, setEdit }) => {
                         <button type="submit">Update!</button>
                     </form>
                 ) : (
-                    <form action={`${backend}/api/updateDoctor/${row.id}/`} method="PUT">
+                    <form action={`${backend}/api/updateDoctor/${row.id}/`} method="PUT" onSubmit={() => navigate("/")}>
                         <input type="date" name="date_of_birth" className="inputText inputUpper" required value={state.date_of_birth} onChange={(e) => { setState({ ...state, [e.target.name]: e.target.value }) }} />
                         <input type="text" name="iin" className="inputText" placeholder="IIN" required value={state.iin} onChange={(e) => { setState({ ...state, [e.target.name]: e.target.value }) }} />
                         <input type="text" name="id_number" className="inputText" placeholder="ID number" required value={state.id_number} onChange={(e) => { setState({ ...state, [e.target.name]: e.target.value }) }} />

@@ -1,7 +1,7 @@
 import React from "react";
 import "../index.css"
 
-const Header = ({ userInfo }) => {
+const Header = ({ userInfo, backend, setUserInfo }) => {
 
     const logout = async (e) => {
         e.preventDefault();
@@ -10,6 +10,7 @@ const Header = ({ userInfo }) => {
             headers: { 'Content-Type': 'application/json' },
             credentials: 'include'
         })
+        setUserInfo("none")
         window.location.reload()
     }
 

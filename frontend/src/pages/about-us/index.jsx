@@ -7,7 +7,7 @@ import med from '../../assets/doctor.jpg'
 import Services from "../../components/services";
 import Search from "../../components/search";
 
-const About = ({ userInfo }) => {
+const About = ({ userInfo, backend, setUserInfo }) => {
     const [itemToSearch, setItemToSearch] = useState("")
     const [services, setServices] = useState()
 
@@ -309,7 +309,7 @@ const About = ({ userInfo }) => {
     return (
         <div className="aboutPage">
             <div className="upper">
-                <Header userInfo={userInfo} />
+                <Header userInfo={userInfo} backend={backend} setUserInfo={setUserInfo}/>
                 <img src={medical} alt="" className="upperImg" />
                 <div className="bg-text">
                     <h1>Enjoy  <span style={{ color: "#656293" }}> Qualitative service</span></h1>
