@@ -20,19 +20,17 @@ const Patient = ({ userInfo, backend, medicaments, appointments, setUserInfo }) 
         window.location.reload()
     }
 
-    const userApps = () => {
-        if (apps) {
-            const temp = appointments.filter(med => med.patient === userInfo.id)
-            setApps(temp)
+    const userApps = (par) => {
+        if (!apps) {
+            return appointments.filter(med => med.patient === par.id)
         } else {
             return apps
         }
     }
 
-    const userMedicine = () => {
-        if (meds) {
-            const temp = medicaments.filter(med => med.patient === userInfo.id)
-            setMeds(temp)
+    const userMedicine = (par) => {
+        if (!meds) {
+            return medicaments.filter(med => med.patient === par.id)
         } else {
             return meds
         }
@@ -41,8 +39,8 @@ const Patient = ({ userInfo, backend, medicaments, appointments, setUserInfo }) 
     useEffect(() => {
         (
             async () => {
-                setApps(userApps())
-                setMeds(userMedicine())
+                setApps(userApps(userInfo))
+                setMeds(userMedicine(userInfo))
             })();
     }, [])
 
