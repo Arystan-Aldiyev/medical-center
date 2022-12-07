@@ -18,8 +18,8 @@ const Login = ({ backend, setUserInfo }) => {
                 password
             })
         })
-        window.location.reload()
         navigate("/")
+        window.location.reload()
     }
 
     return (

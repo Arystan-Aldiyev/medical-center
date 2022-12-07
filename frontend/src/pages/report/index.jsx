@@ -13,7 +13,6 @@ const Report = ({ appointments }) => {
 
     const byDepartments = (apps) => {
         let result = {
-            "some department": 0
         }
         apps.forEach(item => {
             if (result[item.department]) {
@@ -42,7 +41,8 @@ const Report = ({ appointments }) => {
                 </div >
             )
         } else {
-            const apps = appointments.filter(ap => start <= ap && ap <= end)
+            const apps = appointments.filter(ap => start <= ap.date && ap.date <= end)
+            console.log(start, end)
             console.log(apps)
             return (
                 <div className="overall" >
@@ -58,7 +58,7 @@ const Report = ({ appointments }) => {
     return (
         <div className="aboutPage">
             <div className="scrollable2">
-                {calculate("all", "all")}
+                {appointments && calculate("all", "all")}
 
                 <div className="ask">
                     <input type="date" id="dataStart" className="inputText" />
@@ -66,7 +66,7 @@ const Report = ({ appointments }) => {
                     <button onClick={() => {
                         setShow(true)
                     }} className="switch">Show</button>
-                    {show && (
+                    {show && document.getElementById("dataStart")(
                         <>
                             {calculate(document.getElementById("dataStart").value, document.getElementById("dataEnd").value)}
                         </>
