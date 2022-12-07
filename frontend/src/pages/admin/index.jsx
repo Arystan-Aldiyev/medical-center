@@ -30,14 +30,14 @@ const Admin = ({ patients, doctors, backend }) => {
         <div className="aboutPage">
             <div className="servicesAbout" id="services">
                 <div className="reverse">
-                    <Search itemToSearch={itemToSearch} setItemToSearch={setItemToSearch} filteredList={filteredList} updateFilter={updateFilter} show={show} patients={patients} doctors={doctors} where={"admin"}/>
+                    <Search itemToSearch={itemToSearch} setItemToSearch={setItemToSearch} filteredList={filteredList} updateFilter={updateFilter} show={show} patients={patients} doctors={doctors} where={"admin"} />
                     <button onClick={() => {
                         setEdit(false)
                         setAdd(!add)
                         setItemToSearch("")
                     }} className="switch">Add new {show ? "patient" : "doctor"}</button>
-                    {add && <Create backend={backend} show={show} setAdd={setAdd}/>}
-                    {edit && <Update backend={backend} show={show} row={curRow} setEdit={setEdit}/>}
+                    {add && <Create backend={backend} show={show} setAdd={setAdd} />}
+                    {edit && <Update backend={backend} show={show} row={curRow} setEdit={setEdit} />}
                     <button onClick={() => {
                         changeMode(!show)
                         setAdd(false)
@@ -51,7 +51,7 @@ const Admin = ({ patients, doctors, backend }) => {
                             <tr>
                                 {filteredList && columns.map((col) => (
                                     <th key={col}>{col}</th>
-                                    ))
+                                ))
                                 }
                             </tr>
                         </thead>
