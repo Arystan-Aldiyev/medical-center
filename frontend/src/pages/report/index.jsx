@@ -3,7 +3,7 @@ import "../index.css"
 
 const Report = ({ appointments }) => {
     const [show, setShow] = useState()
-
+    const blabal = "sdasd"
     const profit = (apps) => {
         let result = 0
         apps.map((item) => {
