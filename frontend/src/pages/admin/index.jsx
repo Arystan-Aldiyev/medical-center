@@ -19,6 +19,17 @@ const Admin = ({ patients, doctors, backend, logout }) => {
     const [edit, setEdit] = useState(false)
     const [curRow, setCurRow] = useState()
 
+    const logout = async (e) => {
+        e.preventDefault();
+        await fetch(`${backend}/api/logout/`, {
+            method: "POST",
+            headers: { 'Content-Type': 'application/json' },
+            credentials: 'include'
+        })
+        setUserInfo("none")
+        window.location.reload()
+    }
+
 
     const changeMode = (mode) => {
         setShow(mode)
@@ -57,7 +68,7 @@ const Admin = ({ patients, doctors, backend, logout }) => {
                         setAdd(false)
                         setEdit(false)
                     }}>{show ? "Show doctors" : "Show patients"}</a>
-                    <a href="#" onClick={(e) => logout(e)}>Log out</a>
+                    <a href="/" onClick={(e) => logout(e)}>Log out</a>
                 </div>
             </div>
             <div className="servicesAbout">
