@@ -54,13 +54,13 @@ class Patient(models.Model):
     registration_date = models.DateTimeField(auto_now_add=True)
     
 class Appointment(models.Model):
-    date = models.DateField()
+    date = models.TextField()
     name = models.CharField(max_length=255)
     time = models.CharField(max_length=255)
     doctor = models.BigIntegerField()
     patient = models.BigIntegerField()
     price = models.FloatField()
-    department = models.CharField(max_length=255)
+    department = models.CharField(max_length=255,null=True,blank=True)
 
 
 class Medicament(models.Model):

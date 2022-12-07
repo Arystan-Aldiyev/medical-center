@@ -188,15 +188,16 @@ class UpdateDoctor(RetrieveUpdateDestroyAPIView):
     
 @api_view(http_method_names=['POST'])
 def createAppointment(request):
-    serializer = AppointmentSerializer(request.data)
+    serializer = AppointmentSerializer(data=request.data)
     if (not serializer.is_valid()):
-        return Response({'message' : 'Provide valid data'})
+        return Response({'message' : 'Provide valid data'},status=status.HTTP_400_BAD_REQUEST)
     doctor = Doctor.objects.get(id = serializer.validated_data['doctor'])
     appointment = Appointment(
+        date = serializer.validated_data['date'],
         name = serializer.validated_data['name'],
         time = serializer.validated_data['time'],
         doctor = serializer.validated_data['doctor'],
-        patient = serializer.validated_data['patinet'],
+        patient = serializer.validated_data['patient'],
         price = serializer.validated_data['price'],
         department = doctor.department_id,
     )
