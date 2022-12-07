@@ -53,6 +53,25 @@ const Admin = ({ patients, doctors, backend, setUserInfo }) => {
 
     return (
         <div className="aboutPage">
+            <div className="header">
+                <a href='/about' className='about'>Medica inc.</a>
+                <div className='right-header'>
+                    <a href="#" onClick={() => {
+                        setEdit(false)
+                        setAdd(!add)
+                        setItemToSearch("")
+                    }} className="switch">Add new {show ? "patient" : "doctor"}</a>
+                    <a href="#" onClick={() => {
+                        setItemToSearch("")
+                        changeMode(!show)
+                        setAdd(false)
+                        setEdit(false)
+                    }} className="switch">{show ? "Show doctors" : "Show patients"}</a>
+                    <a href="#" onClick={() => { setShow(1); setStats(0); setEdit(false) }}>Search patient</a>
+                    <a href='/'>{userInfo.name} {userInfo.surname}</a>
+                    <a href="/" onClick={(e) => logout(e)}>Log out</a>
+                </div>
+            </div>
             <div className="servicesAbout">
                 <div className="reverse">
                     <Search itemToSearch={itemToSearch} setItemToSearch={setItemToSearch} filteredList={filteredList} updateFilter={updateFilter} show={show} patients={patients} doctors={doctors} where={"admin"} />
@@ -69,7 +88,6 @@ const Admin = ({ patients, doctors, backend, setUserInfo }) => {
                         setAdd(false)
                         setEdit(false)
                     }} className="switch">{show ? "Show doctors" : "Show patients"}</button>
-                    <button className="switch" onClick={(e) => { logout(e) }}></button>
                 </div>
                 <div className="usersList">
                     <table>
