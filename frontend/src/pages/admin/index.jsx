@@ -10,7 +10,6 @@ const Admin = ({ patients, doctors, backend }) => {
     const [show, setShow] = useState(true)
     const patientCols = ["User ID", "IIN", "Name", "Surname", "Middlename", "Date of birth", "Address", "Contact number", "Blood group", "Emergency contact number", "marital status"]
     const doctorCols = ["User ID", "IIN", "Name", "Surname", "Middlename", "Date of birth", "Address", "Contact number", "Department", "Specialization", "Expirience", "Category", "Price", "Schedule details", "Rating", "Degree", "Url"]
-    const [data, setData] = useState(patients)
     const [columns, setColumns] = useState(patientCols)
     const [itemToSearch, setItemToSearch] = useState("")
     const [filteredList, updateFilter] = useState(patients)
@@ -21,14 +20,13 @@ const Admin = ({ patients, doctors, backend }) => {
 
     const changeMode = (mode) => {
         setShow(mode)
-        mode ? setData(patients) : setData(doctors)
         mode ? setColumns(patientCols) : setColumns(doctorCols)
         mode ? updateFilter(patients) : updateFilter(doctors)
     }
 
     return (
         <div className="aboutPage">
-            <div className="servicesAbout" id="services">
+            <div className="servicesAbout">
                 <div className="reverse">
                     <Search itemToSearch={itemToSearch} setItemToSearch={setItemToSearch} filteredList={filteredList} updateFilter={updateFilter} show={show} patients={patients} doctors={doctors} where={"admin"} />
                     <button onClick={() => {
@@ -39,10 +37,10 @@ const Admin = ({ patients, doctors, backend }) => {
                     {add && <Create backend={backend} show={show} setAdd={setAdd} />}
                     {edit && <Update backend={backend} show={show} row={curRow} setEdit={setEdit} />}
                     <button onClick={() => {
+                        setItemToSearch("")
                         changeMode(!show)
                         setAdd(false)
                         setEdit(false)
-                        setItemToSearch("")
                     }} className="switch">{show ? "Show doctors" : "Show patients"}</button>
                 </div>
                 <div className="usersList">
@@ -63,7 +61,7 @@ const Admin = ({ patients, doctors, backend }) => {
                                     <td key={uuidv4()}>{row.name}</td>
                                     <td key={uuidv4()}>{row.surname}</td>
                                     <td key={uuidv4()}>{row.middlename}</td>
-                                    <td key={uuidv4()} className={"datatd"}>{row.date_of_birth.toDateString()}</td>
+                                    <td key={uuidv4()} className={"datatd"}>{(row.date_of_birth).toDateString()}</td>
                                     <td key={uuidv4()}>{row.address}</td>
                                     <td key={uuidv4()}>{row.contact_number}</td>
                                     {show ? (

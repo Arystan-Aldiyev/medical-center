@@ -25,7 +25,7 @@ const Update = ({ show, backend, row, setEdit }) => {
             <div onClick={() => setEdit(false)}>Close &times;</div>
             <div className="scrollable">
                 {show ? (
-                    <form action={`${backend}/api/updatePatient`} method="PUT">
+                    <form action={`${backend}/api/updatePatient/${row.id_number}/`} method="PUT">
                         <input type="date" name="date_of_birth" className="inputText inputUpper" required value={row.date_of_birth}/>
                         <input type="text" name="iin" className="inputText" placeholder="IIN" required value={row.iin}/>
                         <input type="text" name="id_number" className="inputText" placeholder="ID number" required value={row.id_number}/>
@@ -41,7 +41,7 @@ const Update = ({ show, backend, row, setEdit }) => {
                         <button type="submit">Update!</button>
                     </form>
                 ) : (
-                    <form action={`${backend}/api/updateDoctor`} method="PUT">
+                    <form action={`${backend}/api/updateDoctor/${row.id_number}/`} method="PUT">
                         <input type="date" name="date_of_birth" className="inputText inputUpper" required value={row.date_of_birth}/>
                         <input type="text" name="iin" className="inputText" placeholder="IIN" required value={row.iin}/>
                         <input type="text" name="id_number" className="inputText" placeholder="ID number" required value={row.id_number}/>

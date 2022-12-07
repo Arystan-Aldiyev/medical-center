@@ -112,6 +112,15 @@
     height: fit-content;
 }
 
+.centered {
+    width: 100%;
+    flex-direction: column;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
 .loginPage {
     height: 100vh;
     width: 100vw;
@@ -210,6 +219,14 @@ td {
     height: fit-content;
 }
 
+.scrollable2 {
+    width: 90vw;
+    height: 70vh;
+    margin-top: 20px;
+    overflow-x: auto;
+    overflow-y: auto;
+}
+
 .popup button {
     margin-top: 20px;
     width: 279px;
@@ -244,4 +261,36 @@ td {
     text-align: center;
     text-decoration: none solid white;
     font-size: 25px;
+}
+
+.buttons {
+    width: 100vw;
+    height: 120px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.appointments {
+    width: fit-content;
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 10px;
+}
+
+.containerApps {
+    width: fit-content;
+    height: fit-content;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 5px;
+}
+
+li {
+    text-align: center;
+    padding: 15px;
+    box-sizing: content-box;
+    list-style-type: none;
 }
