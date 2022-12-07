@@ -1,11 +1,11 @@
 import React from "react";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import "../index.css"
 import { v4 as uuidv4 } from 'uuid';
 import Search from "../../components/search";
 import UpdateMed from "../../components/popups/updateMed";
 
-const Doctor = ({ userInfo, patients, backend, medicaments }) => {
+const Doctor = ({ userInfo, patients, backend, medicaments, appointments }) => {
     const columns = ["ID number", "IIN", "Name", "Surname"]
     const [itemToSearch, setItemToSearch] = useState("")
     const [show, setShow] = useState()
@@ -18,55 +18,11 @@ const Doctor = ({ userInfo, patients, backend, medicaments }) => {
     filteredList = typeof (itemToSearch) !== "undefined" ? filteredList?.filter((item) => item.id_number.toLowerCase().includes(itemToSearch) || item.iin.toLowerCase().includes(itemToSearch) || item.name.toLowerCase().includes(itemToSearch) || item.surname.toLowerCase().includes(itemToSearch)) : filteredList
 
     const userApps = (par) => {
-        // const response = await fetch(`${backend}/api/appointments/${par.id_number}`)
-        // const data = await response.json()
-        // setDataApps(data)
-        const testData = [
-            {
-                name: "usluga 1",
-                time: "10:00-11:00",
-                doctor: 1,
-                patient: 2,
-                price: 104.2,
-                department: "some department"
-            }, {
-                name: "usluga 2",
-                time: "11:00-13:00",
-                doctor: 3,
-                patient: 2,
-                price: 10.2,
-                department: "another department"
-            }, {
-                name: "usluga 2",
-                time: "11:00-13:00",
-                doctor: 3,
-                patient: 2,
-                price: 10.2,
-                department: "another department"
-            }, {
-                name: "usluga 2",
-                time: "11:00-13:00",
-                doctor: 3,
-                patient: 2,
-                price: 10.2,
-                department: "another department"
-            }, {
-                name: "usluga 2",
-                time: "11:00-13:00",
-                doctor: 3,
-                patient: 2,
-                price: 10.2,
-                department: "another department"
-            }, {
-                name: "usluga 2",
-                time: "11:00-13:00",
-                doctor: 3,
-                patient: 2,
-                price: 10.2,
-                department: "another department"
-            }
-        ]
-        return testData
+        return appointments.filter(med => med.patient === par.id)
+    }
+
+    const doctorApps = (id) => {
+        return appointments.filter(med => med.doctor === id)
     }
 
     const userMedicine = (par) => {
@@ -142,7 +98,7 @@ const Doctor = ({ userInfo, patients, backend, medicaments }) => {
     }
 
     const generateApps = () => {
-        const data = userApps(userInfo.id_number)
+        const data = doctorApps(userInfo.id)
         return (
             <div className="servicesList centered">
                 <div className="scrollable2">
@@ -203,9 +159,8 @@ const Doctor = ({ userInfo, patients, backend, medicaments }) => {
                                             <td key={uuidv4()}>{row.iin}</td>
                                             <td key={uuidv4()}>{row.name}</td>
                                             <td key={uuidv4()}>{row.surname}</td>
-                                            {console.log(typeof (row.date_of_birth))}
                                             {/* <td key={uuidv4()}>{typeof(row.date_of_birth)} {row.date_of_birth.toDateString()}</td> */}
-                                            <td className="borderless"><button className="editB" onClick={() => { console.log(row); setStats(true); setCurRow(row); setEdit(false) }}>View</button></td>
+                                            <td className="borderless"><button className="editB" onClick={() => { setStats(true); setCurRow(row); setEdit(false) }}>View</button></td>
                                         </tr>
                                     ))}
                                 </tbody>

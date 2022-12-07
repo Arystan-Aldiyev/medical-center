@@ -1,7 +1,15 @@
-import React, { useState } from "react";
+import React from "react";
 import "../index.css"
 
-const Report = ({ patients, doctors, backend }) => {
+const Report = ({ appointments }) => {
+
+    const calculate = (start, end) => {
+        console.log("a")
+        
+        return (
+            <div>тут крч думаю найти стороннюю библиотеку</div>
+        )
+    }
 
     return (
         <div className="aboutPage">

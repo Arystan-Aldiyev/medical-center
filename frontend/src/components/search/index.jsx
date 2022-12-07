@@ -9,9 +9,7 @@ const Search = ({ itemToSearch, setItemToSearch, updateFilter, show, patients, d
         (
             async () => {
                 if (where === "admin") {
-                    console.log(itemToSearch)
                     if (show) {
-                        console.log(itemToSearch)
                         const temp = itemToSearch !== "" ? patients?.filter((item) => item.id_number.toLowerCase().includes(itemToSearch) || item.iin.toLowerCase().includes(itemToSearch)) : patients
                         updateFilter(temp)
                     } else {

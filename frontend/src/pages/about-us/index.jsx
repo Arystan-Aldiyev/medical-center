@@ -7,7 +7,7 @@ import med from '../../assets/doctor.jpg'
 import Services from "../../components/services";
 import Search from "../../components/search";
 
-const About = ({ userInfo }) => {
+const About = ({ userInfo, logout }) => {
     const [itemToSearch, setItemToSearch] = useState("")
     const [services, setServices] = useState()
     useEffect(() => {
@@ -308,7 +308,7 @@ const About = ({ userInfo }) => {
     return (
         <div className="aboutPage">
             <div className="upper">
-                <Header userInfo={userInfo} />
+                <Header userInfo={userInfo} logout={logout} />
                 <img src={medical} alt="" className="upperImg" />
                 <div className="bg-text">
                     <h1>Enjoy  <span style={{ color: "#656293" }}> Qualitative service</span></h1>
@@ -358,7 +358,7 @@ const About = ({ userInfo }) => {
                     <img src={med} alt="" className="aboutImg" />
                 </div>
             </div>
-            <div className="servicesAbout" id="services">
+            <div className="servicesAbout " id="services">
                 <Search itemToSearch={itemToSearch} setItemToSearch={setItemToSearch} show={""} patients={""} doctors={""} where={"about"}/>
                 <Services services={services} itemToSearch={itemToSearch} />
             </div>

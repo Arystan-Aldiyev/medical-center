@@ -40,7 +40,6 @@ const Appointment = ({ backend, userInfo, doctors }) => {
         return array.slice((page_number - 1) * page_size, page_number * page_size);
     }
 
-    // console.log(paginated)
     const confirmGo = async (doctor, time) => {
         await fetch(`${backend}/api/createAppointment/`, {
             method: 'POST',

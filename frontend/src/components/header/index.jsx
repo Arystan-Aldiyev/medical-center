@@ -1,8 +1,8 @@
 import React from "react";
 import "../index.css"
 
-const Header = ({ userInfo }) => {
-    console.log(userInfo)
+const Header = ({ userInfo, logout }) => {
+
     return (
         <div className="header">
             {userInfo && userInfo !== 'none' ? (
@@ -14,7 +14,10 @@ const Header = ({ userInfo }) => {
                 <a href='#contacts' >Contacts</a>
                 <a href='#services'>Procedures</a>
                 {userInfo && userInfo !== 'none' ? (
-                    <a href='/'>{userInfo.name} {userInfo.surname}</a>
+                    <>
+                        <a href='/'>{userInfo.name} {userInfo.surname}</a>
+                        <a href="/" onClick={logout}>Log out</a>
+                    </>
                 ) : (
                     <a href='/login'>Login</a>
                 )}
