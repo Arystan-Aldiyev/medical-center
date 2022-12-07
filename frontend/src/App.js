@@ -463,9 +463,8 @@ const App = () => {
         {userInfo.userType === "patient" && <Route path="/makeAppointment" element={<Appointment backend={backend} userInfo={userInfo} doctors={doctors} />} />}
         {userInfo.userType === "doctor" && <Route path="/" element={<Doctor userInfo={userInfo} patients={patients} backend={backend} medicaments={medicaments} appointments={appointments} setUserInfo={setUserInfo} />} />}
         {userInfo === "none" && <Route path="/" element={<About userInfo={userInfo} backend={backend} setUserInfo={setUserInfo} />} />}
-        {userInfo === "none" && <Route path="/login" element={<Login backend={backend} />} />}
+        {userInfo === "none" && <Route path="/login" element={<Login backend={backend} setUserInfo={setUserInfo} />} />}
         <Route path="/about" element={<About userInfo={userInfo} />} />
-
       </Routes>
     </BrowserRouter>
   );

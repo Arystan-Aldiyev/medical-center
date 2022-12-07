@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "../index.css"
 
-const Login = ({ backend }) => {
+const Login = ({ backend, setUserInfo }) => {
     const navigate = useNavigate();
     const [username, setUsername] = useState("")
     const [password, setPassword] = useState("")
@@ -20,7 +20,9 @@ const Login = ({ backend }) => {
         }).then((response) => response.json()).then((data) => {
             if (data.message === "Invalid username or password!") {
                 alert(data.message);
+                setUserInfo("none")
             } else {
+                setUserInfo(data)
                 navigate("/")
                 window.location.reload()
             }
