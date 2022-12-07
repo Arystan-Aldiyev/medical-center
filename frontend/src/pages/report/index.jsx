@@ -40,7 +40,7 @@ const Report = ({ appointments }) => {
                     <input type="date" id="dataStart" />
                     <input type="date" id="dataEnd" />
                     <button onClick={() => {
-
+                        
                     }}>Show</button>
                 </div>
             </div>
