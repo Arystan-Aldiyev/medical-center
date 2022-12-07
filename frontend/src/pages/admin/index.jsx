@@ -49,6 +49,7 @@ const Admin = ({ patients, doctors, backend, setUserInfo }) => {
                 credentials: 'include'
             })
         }
+        window.location.reload()
     }
 
     return (
