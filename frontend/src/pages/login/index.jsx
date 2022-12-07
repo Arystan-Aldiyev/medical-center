@@ -1,3 +1,4 @@
+import { elementAcceptingRef } from "@mui/utils";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "../index.css"
@@ -24,9 +25,11 @@ const Login = ({ backend, setUserInfo }) => {
             } else {
                 setUserInfo(data)
                 navigate("/")
-                window.location.reload()
+                alert("Rabotaet")
+                document.getElementById("redirect").click()
             }
         });
+
     }
     return (
         <div className="loginPage">
@@ -36,7 +39,7 @@ const Login = ({ backend, setUserInfo }) => {
                 <input name="password" className="inputText inputLower" type="text" id="inputText" placeholder="Your password" onChange={(e) => setPassword(e.target.value)} />
                 <button type="submit">Login</button>
             </form>
-            <></>
+            <a href="/" id="redirect" hidden>sadad</a>
         </div>
     )
 };
