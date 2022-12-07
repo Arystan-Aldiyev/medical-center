@@ -9,7 +9,7 @@ const Login = ({ backend, setUserInfo }) => {
 
     const handleSubmit = async (e) => {
         e.preventDefault()
-        const response = await fetch(`${backend}/api/login/`, {
+        await fetch(`${backend}/api/login/`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             credentials: 'include',
@@ -18,15 +18,8 @@ const Login = ({ backend, setUserInfo }) => {
                 password
             })
         })
-        const data = await response.json()
-        if (data.message) {
-            setUserInfo("none")
-        } else {
-            setUserInfo(data)
-        }
-        alert("Rabotaet")
-        navigate("/")
         window.location.reload()
+        navigate("/")
     }
 
     return (
