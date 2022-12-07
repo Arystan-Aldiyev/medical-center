@@ -1,5 +1,5 @@
 import { React, useState, useEffect } from "react";
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, useNavigate, Route, Routes } from 'react-router-dom';
 import Admin from "./pages/admin";
 import Patient from "./pages/patient";
 import Doctor from "./pages/doctor";
@@ -9,6 +9,7 @@ import Appointment from "./pages/appointment";
 import Report from "./pages/report";
 
 const App = () => {
+  const navigate = useNavigate()
   const [userInfo, setUserInfo] = useState("none")
   const [patients, setPatients] = useState()
   const [doctors, setDoctors] = useState()
@@ -16,11 +17,14 @@ const App = () => {
   const [appointments, setAppointments] = useState()
   const backend = "http://localhost:8000"
   const logout = async () => {
+    e.preventDefault();
     await fetch(`${backend}/api/logout/`, {
-      headers: { 'Content-Type': 'application/json' },
       method: "POST",
+      headers: { 'Content-Type': 'application/json' },
       credentials: 'include'
     })
+    navigate("/")
+    window.location.reload()
   }
   useEffect(() => {
     (
@@ -51,14 +55,14 @@ const App = () => {
         }).then((res) => { return res.json() }).then((data) => { setDoctors(data); console.log(data) })
 
         await fetch(`${backend}/api/medicaments/`, {
-            headers: { 'Content-Type': 'application/json' },
-            credentials: 'include'
-        }).then((res) => { return res.json() }).then((data) => {setMedicaments(data); console.log(data)})
+          headers: { 'Content-Type': 'application/json' },
+          credentials: 'include'
+        }).then((res) => { return res.json() }).then((data) => { setMedicaments(data); console.log(data) })
 
         await fetch(`${backend}/api/appointments/`, {
-            headers: { 'Content-Type': 'application/json' },
-            credentials: 'include'
-        }).then((res) => { return res.json() }).then((data) => {setAppointments(data); console.log(data)})
+          headers: { 'Content-Type': 'application/json' },
+          credentials: 'include'
+        }).then((res) => { return res.json() }).then((data) => { setAppointments(data); console.log(data) })
 
         //Testing purposes
         // setUserInfo({
@@ -464,7 +468,7 @@ const App = () => {
   return (
     <BrowserRouter>
       <Routes>
-        {userInfo.userType === "admin" && <Route path="/" element={<Admin patients={patients} doctors={doctors} backend={backend} />} />}
+        {userInfo.userType === "admin" && <Route path="/" element={<Admin patients={patients} doctors={doctors} backend={backend} logout={logout} />} />}
         {userInfo.userType === "admin" && <Route path="/report" element={<Report appointments={appointments} />} />}
         {userInfo.userType === "patient" && <Route path="/" element={<Patient userInfo={userInfo} backend={backend} logout={logout} medicaments={medicaments} appointments={appointments} />} />}
         {userInfo.userType === "patient" && <Route path="/makeAppointment" element={<Appointment backend={backend} userInfo={userInfo} doctors={doctors} />} />}

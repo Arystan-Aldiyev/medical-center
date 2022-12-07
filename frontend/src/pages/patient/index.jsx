@@ -25,6 +25,7 @@ const Patient = ({ userInfo, backend, logout, medicaments, appointments }) => {
             })();
     }, [])
 
+    console.log(apps, meds)
     return (
         <div className="aboutPage">
             <div className="header">
