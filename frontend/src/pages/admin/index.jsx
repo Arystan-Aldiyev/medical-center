@@ -39,12 +39,12 @@ const Admin = ({ patients, doctors, backend, setUserInfo }) => {
 
     const deleteFunct = async (row, show) => {
         if (show) {
-            await fetch(`${backend}/api/updateDoctor/${row.id}`, {
+            await fetch(`${backend}/api/updatePatient/${row.id}`, {
                 method: "DELETE",
                 credentials: 'include'
             })
         } else {
-            await fetch(`${backend}/api/updatePatient/${row.id}`, {
+            await fetch(`${backend}/api/updateDoctor/${row.id}`, {
                 method: "DELETE",
                 credentials: 'include'
             })
@@ -61,15 +61,13 @@ const Admin = ({ patients, doctors, backend, setUserInfo }) => {
                         setEdit(false)
                         setAdd(!add)
                         setItemToSearch("")
-                    }} className="switch">Add new {show ? "patient" : "doctor"}</a>
+                    }}>Add new {show ? "patient" : "doctor"}</a>
                     <a href="#" onClick={() => {
                         setItemToSearch("")
                         changeMode(!show)
                         setAdd(false)
                         setEdit(false)
-                    }} className="switch">{show ? "Show doctors" : "Show patients"}</a>
-                    <a href="#" onClick={() => { setShow(1); setStats(0); setEdit(false) }}>Search patient</a>
-                    <a href='/'>{userInfo.name} {userInfo.surname}</a>
+                    }}>{show ? "Show doctors" : "Show patients"}</a>
                     <a href="/" onClick={(e) => logout(e)}>Log out</a>
                 </div>
             </div>

@@ -38,7 +38,7 @@ const Appointment = ({ backend, userInfo, doctors }) => {
     const paginate = (page_size, page_number) => {
         // human-readable page numbers usually start with 1, so we reduce 1 in the first argument
         if (filteredList) {
-            return array.slice((page_number - 1) * page_size, page_number * page_size);
+            return filteredList.slice((page_number - 1) * page_size, page_number * page_size);
         } else {
             return []
         }
