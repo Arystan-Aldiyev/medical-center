@@ -323,3 +323,13 @@ li {
 .pagination {
     margin-top: 50px;
 }
+
+.overall li {
+    text-align: left;
+}
+
+.ask {
+    padding: 20px;
+    background-color: pink;
+}
+

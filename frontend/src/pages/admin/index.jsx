@@ -26,14 +26,40 @@ const Admin = ({ patients, doctors, backend, logout }) => {
         mode ? updateFilter(patients) : updateFilter(doctors)
     }
 
-    const deleteFunct = async (row) => {
-        await fetch(`${backend}/api/updatePatient/delete/${row.id}}`, {
-            credentials: 'include'
-        })
+    const deleteFunct = async (row, show) => {
+        if (show) {
+            await fetch(`${backend}/api/updatePatient/${row.id}`, {
+                method: "DELETE",
+                credentials: 'include'
+            })
+        } else {
+            await fetch(`${backend}/api/updateDoctor/${row.id}`, {
+                method: "DELETE",
+                credentials: 'include'
+            })
+        }
+        window.location.reload()
     }
 
     return (
         <div className="aboutPage">
+            <div className="header">
+                <a href='/about' className='about'>Medica inc.</a>
+                <div className='right-header'>
+                    <a href="#" onClick={() => {
+                        setEdit(false)
+                        setAdd(!add)
+                        setItemToSearch("")
+                    }}>Add new {show ? "patient" : "doctor"}</a>
+                    <a href="#" onClick={() => {
+                        setItemToSearch("")
+                        changeMode(!show)
+                        setAdd(false)
+                        setEdit(false)
+                    }}>{show ? "Show doctors" : "Show patients"}</a>
+                    <a href="/" onClick={(e) => logout(e)}>Log out</a>
+                </div>
+            </div>
             <div className="servicesAbout">
                 <div className="reverse">
                     <Search itemToSearch={itemToSearch} setItemToSearch={setItemToSearch} filteredList={filteredList} updateFilter={updateFilter} show={show} patients={patients} doctors={doctors} where={"admin"} />

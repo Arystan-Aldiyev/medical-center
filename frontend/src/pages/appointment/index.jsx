@@ -35,9 +35,13 @@ const Appointment = ({ backend, userInfo, doctors }) => {
         )();
     }, [filteredList])
 
-    const paginate = (array, page_size, page_number) => {
+    const paginate = (page_size, page_number) => {
         // human-readable page numbers usually start with 1, so we reduce 1 in the first argument
-        return array.slice((page_number - 1) * page_size, page_number * page_size);
+        if (filteredList) {
+            return filteredList.slice((page_number - 1) * page_size, page_number * page_size);
+        } else {
+            return []
+        }
     }
 
     const confirmGo = async (doctor, time) => {
@@ -107,7 +111,7 @@ const Appointment = ({ backend, userInfo, doctors }) => {
                             </div>
                             <div className="scrollable2">
                                 <div className="appointments">
-                                    {paginate(filteredList, 5, page).map((item) => (
+                                    {paginate(5, page).map((item) => (
                                         <div className="containerApps" key={uuidv4()}>
                                             <li className="switch" key={uuidv4()}>
                                                 {item.name} {item.surname}
