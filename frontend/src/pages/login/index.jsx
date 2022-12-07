@@ -18,12 +18,7 @@ const Login = ({ backend, setUserInfo }) => {
                 password
             })
         })
-        const data = await response.json()
-        if (data.message) {
-            setUserInfo("none")
-        } else {
-            setUserInfo(data)
-        }
+
         alert("Rabotaet")
         navigate("/")
         window.location.reload()
