@@ -7,7 +7,7 @@ import Create from "../../components/popups/create";
 import Update from "../../components/popups/update";
 import { useNavigate } from "react-router-dom";
 
-const Admin = ({ patients, doctors, backend }) => {
+const Admin = ({ patients, doctors, backend, logout }) => {
     const navigate = useNavigate()
     const [show, setShow] = useState(true)
     const patientCols = ["User ID", "IIN", "Name", "Surname", "Middlename", "Date of birth", "Address", "Contact number", "Blood group", "Emergency contact number", "marital status"]
@@ -69,7 +69,7 @@ const Admin = ({ patients, doctors, backend }) => {
                                     <td key={uuidv4()}>{row.name}</td>
                                     <td key={uuidv4()}>{row.surname}</td>
                                     <td key={uuidv4()}>{row.middlename}</td>
-                                    <td key={uuidv4()} className={"datatd"}>{(row.date_of_birth).toDateString()}</td>
+                                    <td key={uuidv4()} className={"datatd"}>{(row.date_of_birth)}</td>
                                     <td key={uuidv4()}>{row.address}</td>
                                     <td key={uuidv4()}>{row.contact_number}</td>
                                     {show ? (
