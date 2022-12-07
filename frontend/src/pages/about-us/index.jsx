@@ -7,9 +7,10 @@ import med from '../../assets/doctor.jpg'
 import Services from "../../components/services";
 import Search from "../../components/search";
 
-const About = ({ userInfo, logout }) => {
+const About = ({ userInfo, backend, setUserInfo }) => {
     const [itemToSearch, setItemToSearch] = useState("")
     const [services, setServices] = useState()
+
     useEffect(() => {
         (
             async () => {
@@ -17,7 +18,7 @@ const About = ({ userInfo, logout }) => {
                 //     headers: { 'Content-Type': 'application/json' },
                 // });
                 // const data = await response.json()
-                
+
                 // Здесь сервисы захардкодены, тк они статичны и цена всегда одна
                 setServices([{
                     department: "Radiology",
@@ -308,7 +309,7 @@ const About = ({ userInfo, logout }) => {
     return (
         <div className="aboutPage">
             <div className="upper">
-                <Header userInfo={userInfo} logout={logout} />
+                <Header userInfo={userInfo} backend={backend} setUserInfo={setUserInfo}/>
                 <img src={medical} alt="" className="upperImg" />
                 <div className="bg-text">
                     <h1>Enjoy  <span style={{ color: "#656293" }}> Qualitative service</span></h1>
@@ -359,7 +360,7 @@ const About = ({ userInfo, logout }) => {
                 </div>
             </div>
             <div className="servicesAbout " id="services">
-                <Search itemToSearch={itemToSearch} setItemToSearch={setItemToSearch} show={""} patients={""} doctors={""} where={"about"}/>
+                <Search itemToSearch={itemToSearch} setItemToSearch={setItemToSearch} show={""} patients={""} doctors={""} where={"about"} />
                 <Services services={services} itemToSearch={itemToSearch} />
             </div>
         </div>

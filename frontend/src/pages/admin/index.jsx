@@ -7,7 +7,7 @@ import Create from "../../components/popups/create";
 import Update from "../../components/popups/update";
 import { useNavigate } from "react-router-dom";
 
-const Admin = ({ patients, doctors, backend, logout }) => {
+const Admin = ({ patients, doctors, backend, setUserInfo }) => {
     const navigate = useNavigate()
     const [show, setShow] = useState(true)
     const patientCols = ["User ID", "IIN", "Name", "Surname", "Middlename", "Date of birth", "Address", "Contact number", "Blood group", "Emergency contact number", "marital status"]
@@ -19,6 +19,17 @@ const Admin = ({ patients, doctors, backend, logout }) => {
     const [edit, setEdit] = useState(false)
     const [curRow, setCurRow] = useState()
 
+    const logout = async (e) => {
+        e.preventDefault();
+        await fetch(`${backend}/api/logout/`, {
+            method: "POST",
+            headers: { 'Content-Type': 'application/json' },
+            credentials: 'include'
+        })
+        setUserInfo("none")
+        navigate("/")
+        window.location.reload()
+    }
 
     const changeMode = (mode) => {
         setShow(mode)
@@ -26,10 +37,18 @@ const Admin = ({ patients, doctors, backend, logout }) => {
         mode ? updateFilter(patients) : updateFilter(doctors)
     }
 
-    const deleteFunct = async (row) => {
-        await fetch(`${backend}/api/updatePetient/delete/${row.id}}`, {
-            credentials: 'include'
-        })
+    const deleteFunct = async (row, show) => {
+        if (show) {
+            await fetch(`${backend}/api/updateDoctor/${row.id}}`, {
+                method: "DELETE",
+                credentials: 'include'
+            })
+        } else {
+            await fetch(`${backend}/api/updatePatient/${row.id}}`, {
+                method: "DELETE",
+                credentials: 'include'
+            })
+        }
     }
 
     return (
@@ -50,6 +69,7 @@ const Admin = ({ patients, doctors, backend, logout }) => {
                         setAdd(false)
                         setEdit(false)
                     }} className="switch">{show ? "Show doctors" : "Show patients"}</button>
+                    <button className="switch" onClick={(e) => { logout(e) }}></button>
                 </div>
                 <div className="usersList">
                     <table>
@@ -91,14 +111,14 @@ const Admin = ({ patients, doctors, backend, logout }) => {
                                             <td key={uuidv4()}>{row.homepage_url}</td>
                                         </>
                                     )}
-                                    <td className="borderless"><button className="editB" onClick={async() => {
+                                    <td className="borderless"><button className="editB" onClick={async () => {
                                         setAdd(false)
                                         await setEdit(false)
                                         await setCurRow(row)
                                         setEdit(true)
                                         setItemToSearch("")
                                     }}>Edit</button></td>
-                                    <td className="borderless"><button className="editB" onClick={() => { deleteFunct(row) }}>Delete</button></td>
+                                    <td className="borderless"><button className="editB" onClick={() => { deleteFunct(row, show) }}>Delete</button></td>
                                     {/* <td key={uuidv4()}>{row.procedure}</td>
                                     <td key={uuidv4()}>{row.department}</td>
                                     <td key={uuidv4()}>{row.price}</td>
@@ -108,7 +128,7 @@ const Admin = ({ patients, doctors, backend, logout }) => {
                         </tbody>
                     </table>
                 </div>
-                <button className="switch" onClick={() => {navigate("/report")}}>Show report</button>
+                <button className="switch" onClick={() => { navigate("/report") }}>Show report</button>
 
             </div>
         </div >

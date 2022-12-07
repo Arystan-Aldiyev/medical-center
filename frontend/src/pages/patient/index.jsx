@@ -2,24 +2,43 @@ import React, { useState, useEffect } from "react";
 import "../index.css"
 import { v4 as uuidv4 } from 'uuid';
 
-const Patient = ({ userInfo, backend, logout, medicaments, appointments }) => {
-    const [apps, setApps] = useState([])
-    const [meds, setMeds] = useState([])
+const Patient = ({ userInfo, backend, medicaments, appointments, setUserInfo }) => {
+    const [apps, setApps] = useState(appointments)
+    const [meds, setMeds] = useState(medicaments)
     const [show, setShow] = useState(true)
     const [edit, setEdit] = useState(false)
     const [state, setState] = useState(userInfo)
 
+    const logout = async (e) => {
+        e.preventDefault();
+        await fetch(`${backend}/api/logout/`, {
+            method: "POST",
+            headers: { 'Content-Type': 'application/json' },
+            credentials: 'include'
+        })
+        setUserInfo("none")
+        window.location.reload()
+    }
+
     const userApps = (par) => {
-        return appointments.filter(med => med.patient === par.id)
+        if (apps) {
+            return appointments.filter(med => med.patient === par.id)
+        } else {
+            return apps
+        }
     }
 
     const userMedicine = (par) => {
-        return medicaments.filter(med => med.patient === par.id)
+        if (meds) {
+            return medicaments.filter(med => med.patient === par.id)
+        } else {
+            return meds
+        }
     }
 
     useEffect(() => {
         (
-            async () => {                
+            async () => {
                 setApps(userApps(userInfo))
                 setMeds(userMedicine(userInfo))
             })();
@@ -35,7 +54,7 @@ const Patient = ({ userInfo, backend, logout, medicaments, appointments }) => {
                     <a href="/makeAppointment" style={{ "marginRight": "25px", "width": "fit-content", "whiteSpace": "nowrap" }}>Make appointment</a>
                     <a href="#" onClick={() => { setShow(!show) }} style={{ "marginRight": "25px", "width": "fit-content", "whiteSpace": "nowrap" }}>View {show ? "medicaments" : "appointments"}</a>
                     <a href="#" onClick={() => { setEdit(!edit) }} style={{ "marginRight": "25px", "width": "fit-content", "whiteSpace": "nowrap" }}>Edit my info</a>
-                    <a href='#' onClick={logout} style={{ "marginRight": "25px", "width": "fit-content", "whiteSpace": "nowrap" }}>Log out</a>
+                    <a href='#' onClick={(e) => logout(e)} style={{ "marginRight": "25px", "width": "fit-content", "whiteSpace": "nowrap" }}>Log out</a>
                 </div>
             </div>
             <div className="servicesList centered">
@@ -63,54 +82,62 @@ const Patient = ({ userInfo, backend, logout, medicaments, appointments }) => {
                 )}
                 {show ? (
                     <div className="scrollable2">
-                        <div className="appointments">
-                            {apps.map((item) => (
-                                <div className="containerApps" key={uuidv4()}>
-                                    <li className="switch" key={uuidv4()}>
-                                        Name: {item.name}
-                                    </li>
-                                    <li className="switch" key={uuidv4()}>
-                                        Interval: {item.time}
-                                    </li>
-                                    <li className="switch" key={uuidv4()}>
-                                        Doctor: {item.doctor}
-                                    </li>
-                                    <li className="switch" key={uuidv4()}>
-                                        Price: ${item.price}
-                                    </li>
-                                    <li className="switch" key={uuidv4()}>
-                                        Department: {item.department}
-                                    </li>
-                                </div>
-                            ))}
-                        </div>
+                        {apps ? (
+                            <div className="appointments">
+                                {apps && apps.map((item) => (
+                                    <div className="containerApps" key={uuidv4()}>
+                                        <li className="switch" key={uuidv4()}>
+                                            Name: {item.name}
+                                        </li>
+                                        <li className="switch" key={uuidv4()}>
+                                            Interval: {item.time}
+                                        </li>
+                                        <li className="switch" key={uuidv4()}>
+                                            Doctor: {item.doctor}
+                                        </li>
+                                        <li className="switch" key={uuidv4()}>
+                                            Price: ${item.price}
+                                        </li>
+                                        <li className="switch" key={uuidv4()}>
+                                            Department: {item.department}
+                                        </li>
+                                    </div>
+                                ))}
+                            </div>
+                        ) : (
+                            <div>No appointments</div>
+                        )}
                     </div>
                 ) : (
                     <div className="scrollable2">
-                        <div className="appointments">
-                            {meds.map((item) => (
-                                <div className="containerApps" key={uuidv4()}>
-                                    <li className="switch" key={item.name}>
-                                        Name: {item.name}
-                                    </li>
-                                    <li className="switch" key={uuidv4()}>
-                                        Interval: {item.start_time} - {item.end_time}
-                                    </li>
-                                    {item.active ? (
-                                        <>
-                                            <li className="switch" key={uuidv4()}>
-                                                Active
-                                            </li>
-                                            <button className="editB">Edit</button>
-                                        </>
-                                    ) : (
-                                        <li className="switch" key={uuidv4()}>
-                                            Done
+                        {meds ? (
+                            <div className="appointments">
+                                {meds.map((item) => (
+                                    <div className="containerApps" key={uuidv4()}>
+                                        <li className="switch" key={item.name}>
+                                            Name: {item.name}
                                         </li>
-                                    )}
-                                </div>
-                            ))}
-                        </div>
+                                        <li className="switch" key={uuidv4()}>
+                                            Interval: {item.start_time} - {item.end_time}
+                                        </li>
+                                        {item.active ? (
+                                            <>
+                                                <li className="switch" key={uuidv4()}>
+                                                    Active
+                                                </li>
+                                                <button className="editB">Edit</button>
+                                            </>
+                                        ) : (
+                                            <li className="switch" key={uuidv4()}>
+                                                Done
+                                            </li>
+                                        )}
+                                    </div>
+                                ))}
+                            </div>
+                        ) : (
+                            <div>No prescribed medicaments</div>
+                        )}
                     </div>
                 )}
             </div>
