@@ -36,21 +36,24 @@ const Admin = ({ patients, doctors, backend, setUserInfo }) => {
         mode ? updateFilter(patients) : updateFilter(doctors)
     }
 
-    const deleteFunct = async (row, show) => {
-        if (show === true || row.marital_status) {
-            await fetch(`${backend}/api/updatePatient/${row.id}`, {
-                method: "DELETE",
-                credentials: 'include'
-            })
-        } else {
-            await fetch(`${backend}/api/updateDoctor/${row.id}`, {
-                method: "DELETE",
-                credentials: 'include'
-            })
-        }
+    const deletePat = async (row, show) => {
+        await fetch(`${backend}/api/updatePatient/${row.id}`, {
+            method: "DELETE",
+            credentials: 'include'
+        })
         navigate("/")
         window.location.reload()
     }
+
+    const deleteDoc = async (row, show) => {
+        await fetch(`${backend}/api/updateDoctor/${row.id}`, {
+            method: "DELETE",
+            credentials: 'include'
+        })
+        navigate("/")
+        window.location.reload()
+    }
+
 
     return (
         <div className="aboutPage">
@@ -135,11 +138,11 @@ const Admin = ({ patients, doctors, backend, setUserInfo }) => {
                                         setEdit(true)
                                         setItemToSearch("")
                                     }}>Edit</button></td>
-                                    <td className="borderless"><button className="editB" onClick={() => { deleteFunct(row, show) }}>Delete</button></td>
-                                    {/* <td key={uuidv4()}>{row.procedure}</td>
-                                    <td key={uuidv4()}>{row.department}</td>
-                                    <td key={uuidv4()}>{row.price}</td>
-                                <td key={uuidv4()}>{row.contraindications}</td> */}
+                                    {show ? (
+                                        <td className="borderless"><button className="editB" onClick={() => { deletePat(row.id) }}>Delete</button></td>
+                                    ) : (
+                                        <td className="borderless"><button className="editB" onClick={() => { deleteDoc(row.id) }}>Delete</button></td>
+                                    )}
                                 </tr>
                             ))}
                         </tbody>
@@ -148,7 +151,7 @@ const Admin = ({ patients, doctors, backend, setUserInfo }) => {
                 <button className="switch" onClick={() => { navigate("/report") }}>Show report</button>
 
             </div>
-        </div >
+        </div>
     )
 };
 
