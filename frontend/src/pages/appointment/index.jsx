@@ -44,14 +44,14 @@ const Appointment = ({ backend, userInfo, doctors }) => {
         }
     }
 
-    const confirmGo = async (doctor, time, date) => {
+    const confirmGo = async (doctor, time) => {
         await fetch(`${backend}/api/createAppointment/`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             credentials: 'include',
             body: JSON.stringify({
                 name: "Doctor visit",
-                date: date,
+                date: doctor.date,
                 time: `${time}:00 - ${parseInt(time) + 1}:00`,
                 doctor: doctor.id,
                 patient: userInfo.id,
@@ -71,12 +71,12 @@ const Appointment = ({ backend, userInfo, doctors }) => {
                                     {details.doctor.name} {details.doctor.surname}
                                 </li>
                                 <li className="switch" key={uuidv4()}>
-                                    Date: {details.date}
+                                    Date: {details.doctor.date}
                                 </li>
                                 <li className="switch" key={uuidv4()}>
                                     Time: {details.time}
                                 </li>
-                                <button className="switch" onClick={() => { confirmGo(details.doctor, details.time, detailt.date) }}>Confirm</button>
+                                <button className="switch" onClick={() => { confirmGo(details.doctor, details.time, details.date) }}>Confirm</button>
                             </div>
                         </div>
                     ) : (
@@ -120,11 +120,11 @@ const Appointment = ({ backend, userInfo, doctors }) => {
                                                 Specialization: {item.specialization_id}
                                             </li>
                                             <li className="switch" key={uuidv4()}>
-                                                <input type="date" id="dateApp"/>
+                                                {item.date}
                                             </li>
                                             <li className="a" key={uuidv4()}>
                                                 {item.schedule_details.split(";").map((time) => (
-                                                    <button className="switch" onClick={() => { askConfirm(true); setDetails({ doctor: item, time: time, date: document.getElementById("dateApp").value }) }} key={uuidv4()}>
+                                                    <button className="switch" onClick={() => { askConfirm(true); setDetails({ doctor: item, time: time }) }} key={uuidv4()}>
                                                         <li>{time}:00 - {parseInt(time) + 1}:00</li>
                                                     </button>
                                                 ))}
