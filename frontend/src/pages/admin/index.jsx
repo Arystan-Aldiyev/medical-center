@@ -30,6 +30,7 @@ const Admin = ({ patients, doctors, backend, setUserInfo }) => {
         window.location.reload()
     }
 
+
     const changeMode = (mode) => {
         setShow(mode)
         mode ? setColumns(patientCols) : setColumns(doctorCols)
