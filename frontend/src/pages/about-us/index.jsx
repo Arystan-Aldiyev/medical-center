@@ -10,6 +10,7 @@ import Search from "../../components/search";
 const About = ({ userInfo, backend, setUserInfo }) => {
     const [itemToSearch, setItemToSearch] = useState("")
     const [services, setServices] = useState()
+    console.log(backend)
 
     useEffect(() => {
         (

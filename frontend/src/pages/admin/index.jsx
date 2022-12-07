@@ -27,7 +27,6 @@ const Admin = ({ patients, doctors, backend, setUserInfo }) => {
             credentials: 'include'
         })
         setUserInfo("none")
-        navigate("/")
         window.location.reload()
     }
 
@@ -68,7 +67,7 @@ const Admin = ({ patients, doctors, backend, setUserInfo }) => {
                         setAdd(false)
                         setEdit(false)
                     }}>{show ? "Show doctors" : "Show patients"}</a>
-                    <a href="#" onClick={(e) => logout(e)}>Log out</a>
+                    <a href="/" onClick={(e) => logout(e)}>Log out</a>
                 </div>
             </div>
             <div className="servicesAbout">
