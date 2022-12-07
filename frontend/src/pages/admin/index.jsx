@@ -37,8 +37,8 @@ const Admin = ({ patients, doctors, backend, setUserInfo }) => {
         mode ? updateFilter(patients) : updateFilter(doctors)
     }
 
-    const deletePat = async (row, show) => {
-        await fetch(`${backend}/api/updatePatient/${row.id}`, {
+    const deletePat = async (id) => {
+        await fetch(`${backend}/api/updatePatient/${id}`, {
             method: "DELETE",
             credentials: 'include'
         })
@@ -46,8 +46,8 @@ const Admin = ({ patients, doctors, backend, setUserInfo }) => {
         window.location.reload()
     }
 
-    const deleteDoc = async (row, show) => {
-        await fetch(`${backend}/api/updateDoctor/${row.id}`, {
+    const deleteDoc = async (id) => {
+        await fetch(`${backend}/api/updateDoctor/${id}`, {
             method: "DELETE",
             credentials: 'include'
         })
