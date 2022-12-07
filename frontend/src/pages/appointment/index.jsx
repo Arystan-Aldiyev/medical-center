@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from "react";
 import "../index.css"
+import { useNavigate } from "react-router-dom";
 import { ReactComponent as SearchIcon } from '../../assets/SearchIcon.svg'
 import { v4 as uuidv4 } from 'uuid';
 import { Pagination } from '@mui/material';
 
 const Appointment = ({ backend, userInfo, doctors }) => {
+    const navigate = useNavigate()
     const [itemToSearch, setItemToSearch] = useState("")
     const [filteredList, updateFilter] = useState(doctors)
     const [dep, setDep] = useState("all")
@@ -58,6 +60,8 @@ const Appointment = ({ backend, userInfo, doctors }) => {
                 price: doctor.price,
             })
         })
+        window.location.reload()
+        navigate("/")
     }
 
     return (
