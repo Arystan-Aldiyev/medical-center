@@ -18,6 +18,7 @@ const App = () => {
   const logout = async () => {
     await fetch(`${backend}/api/logout/`, {
       headers: { 'Content-Type': 'application/json' },
+      method: "POST",
       credentials: 'include'
     })
   }
