@@ -30,8 +30,8 @@ const Report = ({ appointments }) => {
         )
     }
 
-    const calculate = (start, end) => {
-        if (start === "all") {
+    const calculate = (all) => {
+        if (all === "all") {
             return (
                 <div className="overall" >
                     <li>Total patients: {appointments.length}</li>
@@ -41,8 +41,12 @@ const Report = ({ appointments }) => {
                 </div >
             )
         } else {
+            const start = document.getElementById("dataStart").value
+            const end = document.getElementById("dataEnd").value
             const apps = appointments.filter(ap => start <= ap.date && ap.date <= end)
             console.log(start, end)
+            console.log(appointments[0].date)
+            console.log('------------------------------------')
             console.log(apps)
             return (
                 <div className="overall" >
@@ -58,17 +62,19 @@ const Report = ({ appointments }) => {
     return (
         <div className="aboutPage">
             <div className="scrollable2">
-                {appointments && calculate("all", "all")}
+                {appointments && calculate("all")}
 
                 <div className="ask">
                     <input type="date" id="dataStart" className="inputText" />
                     <input type="date" id="dataEnd" className="inputText" />
                     <button onClick={() => {
-                        setShow(true)
-                    }} className="switch">Show</button>
-                    {show && document.getElementById("dataStart")(
+                        setShow(!show)
+                    }} className="switch">Update</button>
+                    {show && (
                         <>
-                            {calculate(document.getElementById("dataStart").value, document.getElementById("dataEnd").value)}
+                            {
+                                calculate("not all")
+                            }
                         </>
                     )}
                 </div>
