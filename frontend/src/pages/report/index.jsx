@@ -1,7 +1,8 @@
-import React from "react";
+import React, {useState} from "react";
 import "../index.css"
 
 const Report = ({ appointments }) => {
+    const [show, setShow] = useState()
 
     const profit = (apps) => {
         let result = 0
@@ -36,7 +37,11 @@ const Report = ({ appointments }) => {
                     <li>Total profit: {() => calculate("all", "s").profit}</li>
                 </div>
                 <div className="ask">
-                    alsvlasf
+                    <input type="date" id="dataStart" />
+                    <input type="date" id="dataEnd" />
+                    <button onClick={() => {
+
+                    }}>Show</button>
                 </div>
             </div>
         </div>

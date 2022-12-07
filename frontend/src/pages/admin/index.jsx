@@ -38,7 +38,7 @@ const Admin = ({ patients, doctors, backend, setUserInfo }) => {
     }
 
     const deleteFunct = async (row, show) => {
-        if (show) {
+        if (show === true) {
             await fetch(`${backend}/api/updatePatient/${row.id}`, {
                 method: "DELETE",
                 credentials: 'include'
