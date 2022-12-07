@@ -21,6 +21,7 @@ const Login = ({ backend }) => {
             if (data.message === "Invalid username or password!") {
                 alert(data.message);
             } else {
+                window.location.reload()
                 navigate("/")
             }
         });
