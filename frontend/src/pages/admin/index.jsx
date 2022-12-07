@@ -27,7 +27,7 @@ const Admin = ({ patients, doctors, backend, logout }) => {
     }
 
     const deleteFunct = async (row, show) => {
-        if (show) {
+        if (show === true) {
             await fetch(`${backend}/api/updatePatient/${row.id}`, {
                 method: "DELETE",
                 credentials: 'include'
@@ -57,7 +57,7 @@ const Admin = ({ patients, doctors, backend, logout }) => {
                         setAdd(false)
                         setEdit(false)
                     }}>{show ? "Show doctors" : "Show patients"}</a>
-                    <a href="/" onClick={(e) => logout(e)}>Log out</a>
+                    <a href="#" onClick={(e) => logout(e)}>Log out</a>
                 </div>
             </div>
             <div className="servicesAbout">
