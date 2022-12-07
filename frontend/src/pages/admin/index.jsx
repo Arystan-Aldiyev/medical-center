@@ -7,7 +7,7 @@ import Create from "../../components/popups/create";
 import Update from "../../components/popups/update";
 import { useNavigate } from "react-router-dom";
 
-const Admin = ({ patients, doctors, backend, logout }) => {
+const Admin = ({ patients, doctors, backend, setUserInfo }) => {
     const navigate = useNavigate()
     const [show, setShow] = useState(true)
     const patientCols = ["User ID", "IIN", "Name", "Surname", "Middlename", "Date of birth", "Address", "Contact number", "Blood group", "Emergency contact number", "marital status"]
