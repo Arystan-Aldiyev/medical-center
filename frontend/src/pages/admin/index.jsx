@@ -19,6 +19,16 @@ const Admin = ({ patients, doctors, backend, logout }) => {
     const [edit, setEdit] = useState(false)
     const [curRow, setCurRow] = useState()
 
+    const logout = async (e) => {
+        e.preventDefault();
+        await fetch(`${backend}/api/logout/`, {
+            method: "POST",
+            headers: { 'Content-Type': 'application/json' },
+            credentials: 'include'
+        })
+        navigate("/")
+        window.location.reload()
+    }
 
     const changeMode = (mode) => {
         setShow(mode)
@@ -50,6 +60,7 @@ const Admin = ({ patients, doctors, backend, logout }) => {
                         setAdd(false)
                         setEdit(false)
                     }} className="switch">{show ? "Show doctors" : "Show patients"}</button>
+                    <button className="switch" onClick={(e) => { logout(e) }}></button>
                 </div>
                 <div className="usersList">
                     <table>
@@ -91,7 +102,7 @@ const Admin = ({ patients, doctors, backend, logout }) => {
                                             <td key={uuidv4()}>{row.homepage_url}</td>
                                         </>
                                     )}
-                                    <td className="borderless"><button className="editB" onClick={async() => {
+                                    <td className="borderless"><button className="editB" onClick={async () => {
                                         setAdd(false)
                                         await setEdit(false)
                                         await setCurRow(row)
@@ -108,7 +119,7 @@ const Admin = ({ patients, doctors, backend, logout }) => {
                         </tbody>
                     </table>
                 </div>
-                <button className="switch" onClick={() => {navigate("/report")}}>Show report</button>
+                <button className="switch" onClick={() => { navigate("/report") }}>Show report</button>
 
             </div>
         </div >

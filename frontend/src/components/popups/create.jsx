@@ -66,7 +66,7 @@ const Create = ({ show, backend, setAdd }) => {
                         <input type="text" name="schedule_details" className="inputText" placeholder="Schedule details" required />
                         <input type="text" name="degree" className="inputText" placeholder="Degree (Bs / Ms)" required />
                         <input type="number" name="rating" className="inputText" placeholder="Rating out of 10" min={0} step={1} max={10} required />
-                        <input type="text" name="homepage_url" className="inputText" placeholder="Homepage url" required />
+                        <input type="text" name="homepage_url" className="inputText" placeholder="Homepage url" />
                         <input type="text" name="password" className="inputText inputLower" placeholder="Password" required />
                         <button type="submit">Create!</button>
                     </form>

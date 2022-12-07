@@ -1,7 +1,17 @@
 import React from "react";
 import "../index.css"
 
-const Header = ({ userInfo, logout }) => {
+const Header = ({ userInfo }) => {
+
+    const logout = async (e) => {
+        e.preventDefault();
+        await fetch(`${backend}/api/logout/`, {
+            method: "POST",
+            headers: { 'Content-Type': 'application/json' },
+            credentials: 'include'
+        })
+        window.location.reload()
+    }
 
     return (
         <div className="header">
@@ -16,7 +26,7 @@ const Header = ({ userInfo, logout }) => {
                 {userInfo && userInfo !== 'none' ? (
                     <>
                         <a href='/'>{userInfo.name} {userInfo.surname}</a>
-                        <a href="/" onClick={logout}>Log out</a>
+                        <a href="/" onClick={(e) => logout(e)}>Log out</a>
                     </>
                 ) : (
                     <a href='/login'>Login</a>
