@@ -1,0 +1,139 @@
+import React, { useState, useEffect } from "react";
+import "../index.css"
+import { ReactComponent as SearchIcon } from '../../assets/SearchIcon.svg'
+import { v4 as uuidv4 } from 'uuid';
+import { Pagination } from '@mui/material';
+
+const Appointment = ({ backend, userInfo, doctors }) => {
+    const [itemToSearch, setItemToSearch] = useState("")
+    const [filteredList, updateFilter] = useState(doctors)
+    const [dep, setDep] = useState("all")
+    const [confirm, askConfirm] = useState(false)
+    const [details, setDetails] = useState()
+    const [overall, setOverall] = useState(0)
+
+    const [page, setPage] = useState(1)
+    const handleChange = (event, value) => {
+        setPage(value)
+    }
+
+    useEffect(() => {
+        (
+            async () => {
+                const temp = itemToSearch !== "" ? doctors?.filter((item) => item.name.toLowerCase().includes(itemToSearch) || item.iin.toLowerCase().includes(itemToSearch) || item.specialization_id.toLowerCase().includes(itemToSearch)) : doctors
+                const second = dep !== "all" ? temp?.filter((item) => item.department_id === dep) : temp
+                updateFilter(second)
+            }
+        )();
+    }, [itemToSearch, dep])
+
+    useEffect(() => {
+        (
+            async () => {
+                setOverall(parseInt(filteredList.length / 5) + 1)
+            }
+        )();
+    }, [filteredList])
+
+    const paginate = (array, page_size, page_number) => {
+        // human-readable page numbers usually start with 1, so we reduce 1 in the first argument
+        return array.slice((page_number - 1) * page_size, page_number * page_size);
+    }
+
+    // console.log(paginated)
+    const confirmGo = async (doctor, time) => {
+        await fetch(`${backend}/api/createAppointment/`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            credentials: 'include',
+            body: JSON.stringify({
+                name: "Doctor visit",
+                time: `${time}:00 - ${parseInt(time) + 1}:00`,
+                doctor: doctor.id,
+                patient: userInfo.id,
+                price: doctor.price,
+                department: doctor.department_id
+            })
+        })
+    }
+
+    return (
+        <div className="aboutPage">
+            {confirm ? (
+                <div className="servicesList centered">
+                    <div className="containerApps" key={uuidv4()}>
+                        <li className="switch" key={uuidv4()}>
+                            {details.doctor.name} {details.doctor.surname}
+                        </li>
+                        <li className="switch" key={uuidv4()}>
+                            Department: {details.doctor.department_id}
+                        </li>
+                        <li className="switch" key={uuidv4()}>
+                            Specialization: {details.doctor.specialization_id}
+                        </li>
+                        <li className="switch" key={uuidv4()}>
+                            Time: {details.time}
+                        </li>
+                        <button className="switch" onClick={() => { confirmGo(details.doctor, details.time) }}>Confirm</button>
+                    </div>
+                </div>
+            ) : (
+                <div className="center">
+                    <div className="servicesList centered">
+                        <div className="reverse">
+                            <div className='searchDiv'>
+                                <SearchIcon className='searchIcon' />
+                                <input className='searchBox' type='text' placeholder='Search...' value={itemToSearch} onChange={(e) => { setItemToSearch(e.target.value) }} />
+                            </div>
+                            <select className="switch" onChange={(e) => setDep(e.target.value)}>
+                                <option value="all">All departments</option>
+                                <option value="medicine">Medicine</option>
+                                <option value="surgery">Surgery</option>
+                                <option value="gynecology">Gynecology</option>
+                                <option value="obsterics">Obsterics</option>
+                                <option value="pediatrics">Pediatrics</option>
+                                <option value="radiology">Radiology</option>
+                                <option value="eye">Eye</option>
+                                <option value="ENT">Ent</option>
+                                <option value="dental">Dental</option>
+                                <option value="orthopedics">Orthopedics</option>
+                                <option value="neurology">Neurology</option>
+                                <option value="cardiology">Cardiology</option>
+                                <option value="psychiatry">Psychiatry</option>
+                                <option value="skin">Skin</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div className="scrollable2">
+                        <div className="appointments">
+                            {paginate(filteredList, 5, page).map((item) => (
+                                <div className="containerApps" key={uuidv4()}>
+                                    <li className="switch" key={uuidv4()}>
+                                        {item.name} {item.surname}
+                                    </li>
+                                    <li className="switch" key={uuidv4()}>
+                                        Department: {item.department_id}
+                                    </li>
+                                    <li className="switch" key={uuidv4()}>
+                                        Specialization: {item.specialization_id}
+                                    </li>
+                                    <li className="a" key={uuidv4()}>
+                                        {item.schedule_details.split(";").map((time) => (
+                                            <button className="switch" onClick={() => { askConfirm(true); setDetails({ doctor: item, time: time }) }} key={uuidv4()}>
+                                                {time}:00 - {parseInt(time) + 1}:00
+                                            </button>
+                                        ))}
+                                    </li>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                    <Pagination count={overall} className="pagination" page={page} onChange={handleChange} />
+                </div>
+
+            )}
+        </div>
+    )
+};
+
+export default Appointment;

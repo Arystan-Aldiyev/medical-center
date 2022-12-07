@@ -4,22 +4,6 @@ import { useEffect } from "react";
 
 const Create = ({ show, backend, setAdd }) => {
 
-    // useEffect(() => {
-    //     (
-    //         async () => {
-    //             console.log(itemToSearch)
-    //             if (show) {
-    //                 console.log(itemToSearch)
-    //                 const temp = itemToSearch !== "" ? patients?.filter((item) => item.id_number.toLowerCase().includes(itemToSearch) || item.iin.toLowerCase().includes(itemToSearch)) : patients
-    //                 updateFilter(temp)
-    //             } else {
-    //                 const temp = itemToSearch !== "" ? doctors?.filter((item) => item.id_number.toLowerCase().includes(itemToSearch) || item.iin.toLowerCase().includes(itemToSearch)) : doctors
-    //                 updateFilter(temp)
-    //             }
-    //         }
-    //     )();
-    // }, [itemToSearch])
-
     return (
         <div className="popup">
             <div onClick={() => setAdd(false)}>Close &times;</div>

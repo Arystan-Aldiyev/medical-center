@@ -3,16 +3,17 @@ import { useState, useEffect } from "react";
 import "../index.css"
 import { v4 as uuidv4 } from 'uuid';
 import Search from "../../components/search";
+import UpdateMed from "../../components/popups/updateMed";
 
-const Doctor = ({ userInfo, patients, backend }) => {
+const Doctor = ({ userInfo, patients, backend, medicaments }) => {
     const columns = ["ID number", "IIN", "Name", "Surname"]
     const [itemToSearch, setItemToSearch] = useState("")
     const [show, setShow] = useState()
     const [app, setApp] = useState(true)
     const [stats, setStats] = useState(false)
     const [curRow, setCurRow] = useState()
-    const [dataApps, setDataApps] = useState([])
-    const [dataMed, setDataMed] = useState([])
+    const [edit, setEdit] = useState(false)
+    const [state, setState] = useState()
     let filteredList = patients
     filteredList = typeof (itemToSearch) !== "undefined" ? filteredList?.filter((item) => item.id_number.toLowerCase().includes(itemToSearch) || item.iin.toLowerCase().includes(itemToSearch) || item.name.toLowerCase().includes(itemToSearch) || item.surname.toLowerCase().includes(itemToSearch)) : filteredList
 
@@ -69,26 +70,7 @@ const Doctor = ({ userInfo, patients, backend }) => {
     }
 
     const userMedicine = (par) => {
-        // await fetch(`${backend}/api/medicaments/${par.id_number}`, {
-        //     headers: { 'Content-Type': 'application/json' },
-        //     credentials: 'include'
-        // }).then((res) => { return res.json() })
-        const testData = [
-            {
-                start_time: "2020-07-10",
-                end_time: "2021-05-14",
-                name: "uspokoitelniye",
-                is_active: false,
-                patient: 2,
-            }, {
-                start_time: "2022-12-6",
-                ent_time: "2023-12-12",
-                name: "water",
-                is_active: true,
-                patient: 2,
-            }
-        ]
-        return testData
+        return medicaments.filter(med => med.patient === par.id)
     }
 
     const generateStats = () => {
@@ -97,7 +79,7 @@ const Doctor = ({ userInfo, patients, backend }) => {
 
         return (
             <>
-                <button className="switch" onClick={() => { setApp(!app) }}>{app ? "Appointments" : "Medicaments"}</button>
+                <button className="switch" onClick={() => { setApp(!app); setEdit(false) }}>{app ? "Appointments" : "Medicaments"}</button>
                 {app ? (
                     <div className="scrollable2">
                         <div className="appointments">
@@ -124,38 +106,41 @@ const Doctor = ({ userInfo, patients, backend }) => {
                     </div>
                 ) : (
                     <div className="scrollable2">
-                        <div className="appointments">
-                            {dataMed.map((item) => (
-                                <div className="containerApps" key={uuidv4()}>
-                                    <li className="switch" key={item.name}>
-                                        Name: {item.name}
-                                    </li>
-                                    <li className="switch" key={uuidv4()}>
-                                        Interval: {item.start_time} - {item.end_time}
-                                    </li>
-                                    {item.active ? (
-                                        <>
-                                            <li className="switch" key={uuidv4()}>
-                                                Active
-                                            </li>
-                                            <button className="editB">Edit</button>
-                                        </>
-                                    ) : (
-                                        <li className="switch" key={uuidv4()}>
-                                            Done
+                        {edit ? (<UpdateMed setEdit={setEdit} backend={backend} item={state} />) : (
+                            <div className="appointments">
+                                {dataMed.map((item) => (
+                                    <div className="containerApps" key={uuidv4()}>
+                                        <li className="switch" key={item.name}>
+                                            Name: {item.name}
                                         </li>
-                                    )}
-                                </div>
-                            ))}
-                        </div>
+                                        <li className="switch" key={uuidv4()}>
+                                            Interval: {item.start_time} - {item.end_time}
+                                        </li>
+                                        {item.is_active ? (
+                                            <>
+                                                <li className="switch" key={uuidv4()}>
+                                                    Active
+                                                </li>
+                                                <button className="editB" onClick={() => { setEdit(!edit); setState(item) }}>Edit</button>
+                                            </>
+                                        ) : (
+                                            <li className="switch" key={uuidv4()}>
+                                                Done
+                                            </li>
+                                        )}
+                                    </div>
+                                ))}
+                            </div>
+                        )}
+
                     </div>
                 )}
-                <button className="switch" onClick={() => { window.print() }}>Print this page</button>
+                <button className="switch" onClick={() => { setEdit(false); window.print() }}>Print this page</button>
             </>
             // Назначения лекарств + возможность изменить (popup)
         )
     }
-    
+
     const generateApps = () => {
         const data = userApps(userInfo.id_number)
         return (
@@ -189,8 +174,8 @@ const Doctor = ({ userInfo, patients, backend }) => {
     return (
         <div className="aboutPage">
             <div className="buttons">
-                <button className="switch" onClick={() => { setShow(0); setStats(0) }}>My appointments</button>
-                <button className="switch" onClick={() => { setShow(1); setStats(0) }}>Search patient</button>
+                <button className="switch" onClick={() => { setShow(0); setStats(0); setEdit(false) }}>My appointments</button>
+                <button className="switch" onClick={() => { setShow(1); setStats(0); setEdit(false) }}>Search patient</button>
             </div>
             {show === 0 && (
                 generateApps()
@@ -220,7 +205,7 @@ const Doctor = ({ userInfo, patients, backend }) => {
                                             <td key={uuidv4()}>{row.surname}</td>
                                             {console.log(typeof (row.date_of_birth))}
                                             {/* <td key={uuidv4()}>{typeof(row.date_of_birth)} {row.date_of_birth.toDateString()}</td> */}
-                                            <td className="borderless"><button className="editB" onClick={() => { setStats(true); setCurRow(row) }}>View</button></td>
+                                            <td className="borderless"><button className="editB" onClick={() => { console.log(row); setStats(true); setCurRow(row); setEdit(false) }}>View</button></td>
                                         </tr>
                                     ))}
                                 </tbody>

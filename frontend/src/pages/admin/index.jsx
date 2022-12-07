@@ -5,8 +5,10 @@ import Search from "../../components/search";
 import { v4 as uuidv4 } from 'uuid';
 import Create from "../../components/popups/create";
 import Update from "../../components/popups/update";
+import { useNavigate } from "react-router-dom";
 
 const Admin = ({ patients, doctors, backend }) => {
+    const navigate = useNavigate()
     const [show, setShow] = useState(true)
     const patientCols = ["User ID", "IIN", "Name", "Surname", "Middlename", "Date of birth", "Address", "Contact number", "Blood group", "Emergency contact number", "marital status"]
     const doctorCols = ["User ID", "IIN", "Name", "Surname", "Middlename", "Date of birth", "Address", "Contact number", "Department", "Specialization", "Expirience", "Category", "Price", "Schedule details", "Rating", "Degree", "Url"]
@@ -22,6 +24,12 @@ const Admin = ({ patients, doctors, backend }) => {
         setShow(mode)
         mode ? setColumns(patientCols) : setColumns(doctorCols)
         mode ? updateFilter(patients) : updateFilter(doctors)
+    }
+
+    const deleteFunct = async (row) => {
+        await fetch(`${backend}/api/updatePetient/delete/${row.id}}`, {
+            credentials: 'include'
+        })
     }
 
     return (
@@ -98,6 +106,7 @@ const Admin = ({ patients, doctors, backend }) => {
                                         setItemToSearch("")
                                         console.log(row)
                                     }}>Edit</button></td>
+                                    <td className="borderless"><button className="editB" onClick={() => { deleteFunct(row) }}>Delete</button></td>
                                     {/* <td key={uuidv4()}>{row.procedure}</td>
                                     <td key={uuidv4()}>{row.department}</td>
                                     <td key={uuidv4()}>{row.price}</td>
@@ -107,6 +116,8 @@ const Admin = ({ patients, doctors, backend }) => {
                         </tbody>
                     </table>
                 </div>
+                <button className="switch" onClick={() => {navigate("/report")}}>Show report</button>
+
             </div>
         </div >
     )

@@ -5,40 +5,47 @@ import Patient from "./pages/patient";
 import Doctor from "./pages/doctor";
 import About from "./pages/about-us";
 import Login from "./pages/login";
+import Appointment from "./pages/appointment";
+import Report from "./pages/report";
 
 const App = () => {
   const [userInfo, setUserInfo] = useState("none")
   const [patients, setPatients] = useState()
   const [doctors, setDoctors] = useState()
+  const [medicaments, setMedicaments] = useState()
   const backend = "http://localhost:8000"
   useEffect(() => {
     (
       async () => {
-        //   await fetch(`${backend}/api/user/`, {
+        // await fetch(`${backend}/api/user/`, {
+        //   headers: { 'Content-Type': 'application/json' },
+        //   credentials: 'include'
+        // }).then((response) => {
+        //   if (response && response.status === 200) {
+        //     response.json().then((data) => {
+        //       setUserInfo(data)
+        //       console.log(data)
+        //     })
+        //   } else {
+        //     console.log("Not logged in")
+        //     setUserInfo("none")
+        //   }
+        // })
+
+        // await fetch(`${backend}/api/patients/`, {
+        //   headers: { 'Content-Type': 'application/json' },
+        //   credentials: 'include'
+        // }).then((res) => { return res.json() }).then((data) => { setPatients(data); console.log(data) })
+
+        // await fetch(`${backend}/api/doctors/`, {
+        //   headers: { 'Content-Type': 'application/json' },
+        //   credentials: 'include'
+        // }).then((res) => { return res.json() }).then((data) => { setDoctors(data); console.log(data) })
+
+        // await fetch(`${backend}/api/medicaments/`, {
         //     headers: { 'Content-Type': 'application/json' },
         //     credentials: 'include'
-        //   }).then((response) => {
-        //     if (response && response.status === 200) {
-        //       response.json().then((data) => {
-        //         setUserInfo(data)
-        //         console.log(data)
-        //       })
-        //     } else {
-        //       console.log("Not logged in")
-        //       setUserInfo("none")
-        //     }
-        //   })
-
-        //   await fetch(`${backend}/api/patients/`, {
-        //     headers: { 'Content-Type': 'application/json' },
-        //     credentials: 'include'
-        //   }).then((res) => { return res.json() }).then((data) => { setPatients(data); console.log(data) })
-
-        //   await fetch(`${backend}/api/doctors/`, {
-        //     headers: { 'Content-Type': 'application/json' },
-        //     credentials: 'include'
-        //   }).then((res) => { return res.json() }).then((data) => { setDoctors(data); console.log(data) })
-
+        // }).then((res) => { return res.json() }).then((data) => {setMedicaments(data); console.log(data)})
         //Testing purposes
         setUserInfo({
           userType: 'doctor',
@@ -49,6 +56,7 @@ const App = () => {
           {
             date_of_birth: new Date("2018-7-22"),
             iin: "1",
+            id: 1,
             id_number: "1",
             name: "1",
             surname: "1",
@@ -57,10 +65,11 @@ const App = () => {
             emergency_contact_number: "1",
             contact_number: "1",
             address: "1",
-            marital_status: "1"
+            marital_status: "1",
           }, {
             date_of_birth: new Date("1901-6-2"),
             iin: "2",
+            id: 2,
             id_number: "2",
             name: "2",
             surname: "2",
@@ -69,10 +78,11 @@ const App = () => {
             emergency_contact_number: "2",
             contact_number: "2",
             address: "2",
-            marital_status: "2"
+            marital_status: "2",
           }, {
             date_of_birth: new Date("1661-1-2"),
             iin: "3",
+            id: 3,
             id_number: "3",
             name: "3",
             surname: "3",
@@ -81,10 +91,11 @@ const App = () => {
             emergency_contact_number: "3",
             contact_number: "3",
             address: "3",
-            marital_status: "3"
+            marital_status: "3",
           }, {
             date_of_birth: new Date("1961-1-2"),
             iin: "4",
+            id: 4,
             id_number: "4",
             name: "4",
             surname: "4",
@@ -93,7 +104,7 @@ const App = () => {
             emergency_contact_number: "4",
             contact_number: "4",
             address: "4",
-            marital_status: "4"
+            marital_status: "4",
           }])
         setDoctors([
           {
@@ -105,15 +116,16 @@ const App = () => {
             middlename: "1",
             contact_number: "1",
             department_id: "not yet",
-            specialization_id: "not yet",
+            specialization_id: "gp\n hz\n mal",
             experience: "not yet",
             category: "not yet",
             price: "not yet",
-            schedule_details: "not yet",
+            schedule_details: "9;10;13;16",
             degree: "not yet",
             rating: "not yet",
             address: "1",
-            homepage_url: "not yet"
+            homepage_url: "not yet",
+            id: 5
           }, {
             date_of_birth: new Date("1901-6-12"),
             iin: "2",
@@ -122,16 +134,17 @@ const App = () => {
             surname: "2",
             middlename: "2",
             contact_number: "2",
-            department_id: "not yet",
+            department_id: "radiology",
             specialization_id: "not yet",
             experience: "not yet",
             category: "not yet",
             price: "not yet",
-            schedule_details: "not yet",
+            schedule_details: "9;10;13;16",
             degree: "not yet",
             rating: "not yet",
             address: "2",
-            homepage_url: "not yet"
+            homepage_url: "not yet",
+            id: 6
           }, {
             date_of_birth: new Date("1661-1-2"),
             iin: "3",
@@ -140,16 +153,17 @@ const App = () => {
             surname: "3",
             middlename: "3",
             contact_number: "3",
-            department_id: "not yet",
+            department_id: "ENT",
             specialization_id: "not yet",
             experience: "not yet",
             category: "not yet",
             price: "not yet",
-            schedule_details: "not yet",
+            schedule_details: "9;10;13;16",
             degree: "not yet",
             rating: "not yet",
             address: "3",
-            homepage_url: "not yet"
+            homepage_url: "not yet",
+            id: 7
           }, {
             date_of_birth: new Date("1961-1-2"),
             iin: "4",
@@ -163,11 +177,203 @@ const App = () => {
             experience: "not yet",
             category: "not yet",
             price: "not yet",
-            schedule_details: "not yet",
+            schedule_details: "9;10;13;16",
             degree: "not yet",
             rating: "not yet",
             address: "4",
-            homepage_url: "not yet"
+            homepage_url: "not yet",
+            id: 8
+          }, {
+            date_of_birth: new Date("2018-7-22"),
+            iin: "2",
+            id_number: "1",
+            name: "1",
+            surname: "1",
+            middlename: "1",
+            contact_number: "1",
+            department_id: "not yet",
+            specialization_id: "gp\n hz\n mal",
+            experience: "not yet",
+            category: "not yet",
+            price: "not yet",
+            schedule_details: "9;10;13;16",
+            degree: "not yet",
+            rating: "not yet",
+            address: "1",
+            homepage_url: "not yet",
+            id: 5
+          }, {
+            date_of_birth: new Date("1901-6-12"),
+            iin: "2",
+            id_number: "2",
+            name: "2",
+            surname: "2",
+            middlename: "2",
+            contact_number: "2",
+            department_id: "radiology",
+            specialization_id: "not yet",
+            experience: "not yet",
+            category: "not yet",
+            price: "not yet",
+            schedule_details: "9;10;13;16",
+            degree: "not yet",
+            rating: "not yet",
+            address: "2",
+            homepage_url: "not yet",
+            id: 6
+          }, {
+            date_of_birth: new Date("1661-1-2"),
+            iin: "3",
+            id_number: "3",
+            name: "3",
+            surname: "3",
+            middlename: "3",
+            contact_number: "3",
+            department_id: "ENT",
+            specialization_id: "not yet",
+            experience: "not yet",
+            category: "not yet",
+            price: "not yet",
+            schedule_details: "9;10;13;16",
+            degree: "not yet",
+            rating: "not yet",
+            address: "3",
+            homepage_url: "not yet",
+            id: 7
+          }, {
+            date_of_birth: new Date("1961-1-2"),
+            iin: "4",
+            id_number: "4",
+            name: "4",
+            surname: "4",
+            middlename: "4",
+            contact_number: "4",
+            department_id: "not yet",
+            specialization_id: "not yet",
+            experience: "not yet",
+            category: "not yet",
+            price: "not yet",
+            schedule_details: "9;10;13;16",
+            degree: "not yet",
+            rating: "not yet",
+            address: "4",
+            homepage_url: "not yet",
+            id: 8
+          }, {
+            date_of_birth: new Date("2018-7-22"),
+            iin: "2",
+            id_number: "1",
+            name: "1",
+            surname: "1",
+            middlename: "1",
+            contact_number: "1",
+            department_id: "not yet",
+            specialization_id: "gp\n hz\n mal",
+            experience: "not yet",
+            category: "not yet",
+            price: "not yet",
+            schedule_details: "9;10;13;16",
+            degree: "not yet",
+            rating: "not yet",
+            address: "1",
+            homepage_url: "not yet",
+            id: 5
+          }, {
+            date_of_birth: new Date("1901-6-12"),
+            iin: "2",
+            id_number: "2",
+            name: "2",
+            surname: "2",
+            middlename: "2",
+            contact_number: "2",
+            department_id: "radiology",
+            specialization_id: "not yet",
+            experience: "not yet",
+            category: "not yet",
+            price: "not yet",
+            schedule_details: "9;10;13;16",
+            degree: "not yet",
+            rating: "not yet",
+            address: "2",
+            homepage_url: "not yet",
+            id: 6
+          }, {
+            date_of_birth: new Date("1661-1-2"),
+            iin: "3",
+            id_number: "3",
+            name: "3",
+            surname: "3",
+            middlename: "3",
+            contact_number: "3",
+            department_id: "ENT",
+            specialization_id: "not yet",
+            experience: "not yet",
+            category: "not yet",
+            price: "not yet",
+            schedule_details: "9;10;13;16",
+            degree: "not yet",
+            rating: "not yet",
+            address: "3",
+            homepage_url: "not yet",
+            id: 7
+          }, {
+            date_of_birth: new Date("1961-1-2"),
+            iin: "4",
+            id_number: "4",
+            name: "4",
+            surname: "4",
+            middlename: "4",
+            contact_number: "4",
+            department_id: "not yet",
+            specialization_id: "not yet",
+            experience: "not yet",
+            category: "not yet",
+            price: "not yet",
+            schedule_details: "9;10;13;16",
+            degree: "not yet",
+            rating: "not yet",
+            address: "4",
+            homepage_url: "not yet",
+            id: 8
+          }
+        ])
+        setMedicaments([
+          {
+            start_time: "2021-08-16",
+            end_time: "2026-06-01",
+            name: "NUNUNUNUNU",
+            is_active: true,
+            patient: 1,
+          }, {
+            start_time: "2020-07-10",
+            end_time: "2021-05-14",
+            name: "uspokoitelniye",
+            is_active: false,
+            patient: 2,
+          }, {
+            start_time: "2022-12-06",
+            end_time: "2023-12-12",
+            name: "water",
+            is_active: true,
+            patient: 2,
+          }, {
+            start_time: "2022-12-06",
+            end_time: "2023-12-12",
+            name: "water",
+            is_active: true,
+            patient: 3,
+          }, {
+            start_time: "2022-12-06",
+            end_time: "2023-12-12",
+            name: "water",
+            is_active: true,
+            patient: 4,
+          }, {
+            start_time: "2022-12-06",
+            end_time: "2023-12-12",
+            name: "water",
+            is_active: true,
+            patient: 4,
           }
         ])
       }
@@ -178,8 +384,10 @@ const App = () => {
     <BrowserRouter>
       <Routes>
         {userInfo.userType === "admin" && <Route path="/" element={<Admin patients={patients} doctors={doctors} backend={backend} />} />}
-        {userInfo.userType === "patient" && <Route path="/" element={<Patient />} />}
-        {userInfo.userType === "doctor" && <Route path="/" element={<Doctor userInfo={userInfo} patients={patients} backend={backend}/>} />}
+        {userInfo.userType === "admin" && <Route path="/report" element={<Report patients={patients} doctors={doctors} backend={backend} />} />}
+        {userInfo.userType === "patient" && <Route path="/" element={<Patient userInfo={userInfo} backend={backend} />} />}
+        {userInfo.userType === "patient" && <Route path="/makeAppointment" element={<Appointment backend={backend} userInfo={userInfo} doctors={doctors} />} />}
+        {userInfo.userType === "doctor" && <Route path="/" element={<Doctor userInfo={userInfo} patients={patients} backend={backend} medicaments={medicaments} />} />}
         {userInfo === "none" && <Route path="/" element={<About userInfo={userInfo} />} />}
         <Route path="/about" element={<About userInfo={userInfo} />} />
         <Route path="/login" element={<Login backend={backend} />} />
